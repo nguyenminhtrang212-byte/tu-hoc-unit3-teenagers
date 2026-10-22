@@ -195,6 +195,16 @@ details.sents summary{cursor:pointer;font-weight:700;margin:8px 0 4px}
 .rv-item.no{border-color:var(--bad);background:var(--badSoft)}
 .rv-item.ok{border-color:var(--ok);background:var(--okSoft)}
 
+.marked{border:1.5px solid var(--bad);background:var(--badSoft);border-radius:12px;padding:10px 12px;margin-bottom:8px}
+.marked.ok{border-color:var(--ok);background:var(--okSoft)}
+.mk-h{font-size:14px;font-weight:700;margin-bottom:4px}
+.red{color:#d11a2a;font-weight:700}
+.mk-s{font-size:19px;line-height:1.7}
+del.bad{color:#d11a2a;text-decoration:line-through;text-decoration-thickness:2px;background:#ffd9dc;border-radius:4px;padding:0 2px}
+ins.good{color:#d11a2a;font-weight:800;text-decoration:underline;text-underline-offset:3px;background:#fff0f1;border-radius:4px;padding:0 2px}
+.mk-f{margin-top:6px;font-size:16px}
+.trans{margin-top:6px;font-size:15px}
+
 </style>
 </head>
 <body>
@@ -708,12 +718,21 @@ const COMP={happy:'happier',sad:'sadder',easy:'easier',funny:'funnier',busy:'bus
 const BASEV={makes:'make',goes:'go',helps:'help',brings:'bring',uses:'use',plays:'play',shares:'share',spends:'spend',feels:'feel',gives:'give',causes:'cause',sharing:'share',using:'use',playing:'play',spending:'spend',going:'go',watching:'watch',posting:'post',limiting:'limit',talking:'talk',spent:'spend',used:'use',shared:'share',made:'make'};
 const IRR={gived:'gave',buyed:'bought',goed:'went',taked:'took',maked:'made',haved:'had',spended:'spent',speaked:'spoke',writed:'wrote',eated:'ate',runned:'ran',teached:'taught',thinked:'thought',feeled:'felt',bringed:'brought',getted:'got',gotted:'got',losed:'lost',keeped:'kept',leaved:'left'};
 const SPELL={becouse:'because',becuse:'because',beacuse:'because',becasue:'because',freind:'friend',freinds:'friends',hapy:'happy',hapiness:'happiness',stresful:'stressful',stresed:'stressed',adictive:'addictive',addicive:'addictive',privecy:'privacy',infomation:'information',informaton:'information',comunicate:'communicate',smartphon:'smartphone',smarphone:'smartphone',sociel:'social',socail:'social',medai:'media',bennefits:'benefits',benifits:'benefits',dangerus:'dangerous',dangerouse:'dangerous',efect:'effect',eyse:'eyes'};
-const BRAND={youtube:'YouTube',tiktok:'TikTok',facebook:'Facebook',instagram:'Instagram',zalo:'Zalo',google:'Google',messenger:'Messenger',snapchat:'Snapchat'};
+const BRAND={iphone:'iPhone',ipad:'iPad',samsung:'Samsung',youtube:'YouTube',tiktok:'TikTok',facebook:'Facebook',instagram:'Instagram',zalo:'Zalo',google:'Google',messenger:'Messenger',snapchat:'Snapchat'};
 const PASTMAP={buy:'bought',give:'gave',get:'got',save:'saved',win:'won',receive:'received',borrow:'borrowed',earn:'earned'};
 function matchCase(to,from){return /^[A-Z]/.test(from)?to.charAt(0).toUpperCase()+to.slice(1):to;}
 function sentenceBefore(T,i){const s=T.slice(0,i);const k=Math.max(s.lastIndexOf('.'),s.lastIndexOf('!'),s.lastIndexOf('?'));return s.slice(k+1);}
 
+const FAM='mom|mum|mother|mon|dad|dat|father|parents|uncle|aunt|brother|sister|grandma|grandpa|grandmother|grandfather';
+const PASTV={buy:'bought',give:'gave',get:'got'};
+const SUBJ_START=/^\s*(I|My|We|He|She|They|It|Many|Some|Most|Teenagers|Teens|People)\b/;
 const RULES=[
+ {k:'mom',re:/(?<=\bmy\s)(mon|dat)\b/gi,msg:'Sai chính tả.',rep:(m,w)=>/^mon$/i.test(w)?matchCase('mom',w):matchCase('dad',w)},
+ {k:'pastv',re:new RegExp('(?<=\\b(?:my\\s+(?:'+FAM+')|he|she)\\s)(buy|give|get)\\b','gi'),
+  msg:'Câu hỏi hỏi về việc ĐÃ xảy ra (how did you have it?) nên động từ phải ở thì quá khứ: buy → bought (give → gave, get → got).',rep:(m,v)=>matchCase(PASTV[v.toLowerCase()],v)},
+ {k:'splice',re:/,(?=\s+(?:my\s+\w+|I|he|she|they|we)\b)/g,
+  msg:'Hai mệnh đề đầy đủ không nối bằng dấu phẩy. Hãy dùng "and / but / so" sau dấu phẩy, hoặc tách thành hai câu.',rep:()=>', and',
+  skip:(T,i)=>{const sb=sentenceBefore(T,i);return !SUBJ_START.test(sb)||sb.trim().split(/\s+/).length<3||/^\s*(because|if|when|although|though|while|since|as)\b/i.test(sb);}},
  {k:'i',re:/(^|[\s(])i(?=[\s',.!?]|$)/g,msg:'Chữ "I" (tôi) luôn viết hoa.',rep:(m,p)=>p+'I'},
  {k:'cap',re:/([.!?])\s+([a-z])/g,msg:'Chữ cái đầu mỗi câu phải viết hoa.',rep:(m,p,c)=>p+' '+c.toUpperCase()},
  {k:'comma',re:/,(?=[A-Za-z])/g,msg:'Sau dấu phẩy cần có một dấu cách.',rep:()=>', '},
@@ -760,7 +779,7 @@ const RULES=[
  {k:'becauseof',re:/\bbecause\s+of\s+(I|we|you|he|she|it|they|my|teens|teenagers)\b/gi,msg:'"because of" + danh từ; "because" + mệnh đề (chủ ngữ + động từ).',rep:(m,s)=>'because '+s},
  {k:'verymore',re:/\bvery\s+(more|happier|better|worse)\b/gi,msg:'Trước so sánh hơn dùng "much", không dùng "very".',rep:(m,a)=>'much '+a},
  {k:'repeat',re:/\b(\w+)\s+\1\b/gi,msg:'Em viết lặp một từ hai lần.',rep:(m,w)=>w,skip:(T,i,m)=>/^(had|that)$/i.test(m[1])},
- {k:'an1',re:/\ba\s+(hour|email|app|idea|opinion|example|interest|issue|educational|important|addictive|old|easy)\b/gi,msg:'Trước nguyên âm dùng "an".',rep:(m,w)=>'an '+w},
+ {k:'an1',re:/\ba\s+(iphone|ipad|hour|email|app|idea|opinion|example|interest|issue|educational|important|addictive|old|easy)\b/gi,msg:'Trước nguyên âm dùng "an".',rep:(m,w)=>'an '+w},
  {k:'an2',re:/\ban\s+(smartphone|phone|teenager|friend|social|big|good|new|video|photo|story|hobby|skill|group|one|useful|website|computer|tablet|laptop)\b/gi,msg:'Trước phụ âm dùng "a".',rep:(m,w)=>'a '+w},
  {k:'spell',re:new RegExp('\\b('+Object.keys(SPELL).join('|')+')\\b','gi'),msg:'Sai chính tả.',rep:(m,w)=>matchCase(SPELL[w.toLowerCase()],w)}
 ];
@@ -773,7 +792,7 @@ function ruleHits(T){
       if(m[0]===''){re.lastIndex++;continue;}
       if(r.skip&&r.skip(T,m.index,m))continue;
       const to=r.rep(...m);
-      if(to!==m[0])hits.push({r,from:m[0].trim(),to:String(to).trim(),idx:m.index});
+      if(to!==m[0])hits.push({r,from:m[0].trim(),to:String(to).trim(),idx:m.index,len:m[0].length,raw:m[0],rawTo:String(to)});
     }
   });
   return hits;
@@ -802,6 +821,26 @@ function grammarItems(T,short,add){
     if(!/[.!?]["')]*$/.test(T)){n++;add('err','Cuối câu thiếu dấu chấm (.).');}
   }
   return n;
+}
+
+function escH(x){return String(x).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c]);}
+function markup(T,short){
+  const sp=[];
+  ruleHits(T).forEach(h=>{
+    let a=0;while(a<h.raw.length&&a<h.rawTo.length&&h.raw[a]===h.rawTo[a])a++;
+    let b=0;while(b<h.raw.length-a&&b<h.rawTo.length-a&&h.raw[h.raw.length-1-b]===h.rawTo[h.rawTo.length-1-b])b++;
+    let S=h.idx+a,E=h.idx+h.raw.length-b,to=h.rawTo.slice(a,h.rawTo.length-b);
+    if(E>S||to){while(S>0&&/[A-Za-z']/.test(T[S-1])){S--;to=T[S]+to;}while(E<T.length&&/[A-Za-z']/.test(T[E])){to+=T[E];E++;}}
+    sp.push({s:S,e:E,to});
+  });
+  if(!short&&/^[a-z]/.test(T)){const e=T.search(/[^A-Za-z']/);const w=e<0?T:T.slice(0,e);sp.push({s:0,e:w.length,to:w[0].toUpperCase()+w.slice(1)});}
+  sp.sort((x,y)=>x.s-y.s||y.e-x.e);
+  let out='',pos=0;
+  sp.forEach(p=>{if(p.s<pos)return;out+=escH(T.slice(pos,p.s));
+    out+=(p.e>p.s?'<del class="bad">'+escH(T.slice(p.s,p.e))+'</del>':'')+(p.to?'<ins class="good">'+escH(p.to)+'</ins>':'');pos=p.e;});
+  out+=escH(T.slice(pos));
+  if(!short&&!/[.!?]["')]*$/.test(T))out+='<ins class="good">.</ins>';
+  return out;
 }
 
 /* ---------- tiện ích logic ---------- */
@@ -952,7 +991,7 @@ function analyze(q,text){
   const err=items.filter(i=>i.k==='err'||i.k==='logic'||i.k==='content').length;
   if(err===0&&!items.some(i=>i.k==='ok'))add('ok','Không phát hiện lỗi nào.');
   const fixed=vi?'':applyAll(T,q.short);
-  return {items,fixed:fixed!==T?fixed:'',err};
+  return {items,fixed:fixed!==T?fixed:'',err,mark:vi?'':markup(T,q.short),text:T};
 }
 
 
@@ -1042,15 +1081,31 @@ function practice({key,label,target,speakText,maxSec=30}){
 /* ================= BÀI TRẢ LỜI VIẾT (có kiểm tra) ================= */
 const QA=load('qa',{});
 const ICON={err:'❌',logic:'🧠',content:'📌',tip:'💡',ok:'✅'};
+const VICACHE=load('vicache',{});
+async function viTranslate(text){
+  if(VICACHE[text])return VICACHE[text];
+  const r=await fetch('https://api.mymemory.translated.net/get?langpair=en|vi&q='+encodeURIComponent(text));
+  const j=await r.json();const t=j&&j.responseData&&j.responseData.translatedText;
+  if(!t||/MYMEMORY|QUERY LENGTH/i.test(t))throw new Error('no');
+  VICACHE[text]=t;store('vicache',VICACHE);return t;
+}
+function fillTrans(box,res){
+  const el=box.querySelector('.trans');if(!el)return;
+  const src=res.fixed||res.text;if(!src){el.remove();return;}
+  viTranslate(src).then(t=>{el.innerHTML='🇻🇳 <b>Nghĩa tiếng Việt của câu đúng:</b> '+esc(t)+' <span class="tip">(dịch máy, chỉ để tham khảo)</span>';}).catch(()=>el.remove());
+}
 function renderAnalysis(box,res){
   const order=['ok','err','logic','content','tip'];
-  let html=res.err===0?'<div class="verdict ok">🎉 Rất tốt! Máy không tìm thấy lỗi nào.</div>':`<div class="verdict no">Em cần sửa <b>${res.err}</b> chỗ. Sửa trực tiếp vào ô trên rồi bấm Kiểm tra lại.</div>`;
+  let html='';
+  if(res.mark&&res.err>0)html+=`<div class="marked"><div class="mk-h">✏️ Câu của em (chỗ <span class="red">màu đỏ</span> cần sửa):</div><div class="mk-s">${res.mark}</div>${res.fixed?'<div class="mk-f">✅ Câu đúng: <b>'+esc(res.fixed)+'</b></div>':''}<div class="trans tip">🇻🇳 Đang dịch…</div></div>`;
+  else if(res.text&&res.err===0)html+=`<div class="marked ok"><div class="mk-s">${esc(res.text)}</div><div class="trans tip">🇻🇳 Đang dịch…</div></div>`;
+  html+=res.err===0?'<div class="verdict ok">🎉 Rất tốt! Máy không tìm thấy lỗi nào.</div>':`<div class="verdict no">Em cần sửa <b>${res.err}</b> chỗ. Sửa trực tiếp vào ô trên rồi bấm Kiểm tra lại.</div>`;
   order.forEach(k=>res.items.filter(i=>i.k===k).forEach(i=>{
     html+=`<div class="fi k-${k}"><span class="fic">${ICON[k]}</span><div>${esc(i.msg)}${i.ex?`<div class="ex">${esc(i.ex)}</div>`:''}</div></div>`;
   }));
   if(res.fixed)html+=`<div class="fixed">✏️ <b>Bản sửa gợi ý</b> (chỉ sửa các lỗi ngữ pháp máy tìm thấy; em vẫn cần tự kiểm tra ý):<div class="fx">${esc(res.fixed)}</div></div>`;
   html+='<div class="tip" style="color:var(--muted)">Máy kiểm tra theo quy tắc nên có thể sót lỗi hoặc báo nhầm. Thầy/cô sẽ xem lại bài em nộp.</div>';
-  box.innerHTML=html;
+  box.innerHTML=html;fillTrans(box,res);
 }
 function buildQA(sel,qs){
   const root=$(sel);root.innerHTML='';
@@ -1068,7 +1123,7 @@ function buildQA(sel,qs){
     const modelBtn=c.querySelector('[data-a=model]');
     const upd=()=>{cnt.textContent=wc(ta.value)?wc(ta.value)+' từ':'';};
     ta.value=st.draft!=null?st.draft:(st.last||'');upd();
-    if(st.lastItems){renderAnalysis(fb,{items:st.lastItems,err:st.lastErr,fixed:st.fixed||''});modelBtn.hidden=false;}
+    if(st.lastItems){renderAnalysis(fb,{items:st.lastItems,err:st.lastErr,fixed:st.fixed||'',mark:st.mark,text:st.last});modelBtn.hidden=false;}
     ta.oninput=()=>{st.draft=ta.value;store('qa',QA);upd();};
     c.addEventListener('click',e=>{
       const b=e.target.closest('[data-a]');if(!b)return;const a=b.dataset.a;
@@ -1078,7 +1133,7 @@ function buildQA(sel,qs){
         const text=ta.value.trim();
         if(!text){toast('Em hãy gõ câu trả lời trước nhé.');ta.focus();return;}
         const res=analyze(q,text);
-        st.last=text;st.lastErr=res.err;st.lastItems=res.items;st.fixed=res.fixed;st.n=(st.n||0)+1;st.draft=ta.value;
+        st.last=text;st.lastErr=res.err;st.lastItems=res.items;st.fixed=res.fixed;st.mark=res.mark;st.n=(st.n||0)+1;st.draft=ta.value;
         if(st.first==null){st.first=text;st.firstErr=res.err;st.firstItems=res.items;}
         store('qa',QA);renderAnalysis(fb,res);modelBtn.hidden=false;
         fb.scrollIntoView({block:'nearest',behavior:'smooth'});
