@@ -1,0 +1,1296 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Unit 3 · Teenagers · Tự học</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/lamejs@1.2.1/lame.min.js" defer></script>
+<style>
+:root{
+  --bg:#EAF6F7; --paper:#FFFFFF; --ink:#10304A; --muted:#557085; --line:#CFE3E6;
+  --sea:#0E7C86; --sea2:#2BB3B1; --seaSoft:#D5F0EF; --coral:#EF5B43; --coralSoft:#FDE3DD;
+  --sun:#FFC24B; --sunSoft:#FFF1CF; --ok:#1E8F52; --okSoft:#DDF3E6; --bad:#D23B2A; --badSoft:#FBE1DD;
+  --cs:#0B6E78; --csSoft:#D5F0EF; --cz:#B8420F; --czSoft:#FFE6D3; --ci:#6D3FC0; --ciSoft:#EBE2FB;
+  --head:"Baloo 2","Be Vietnam Pro",system-ui,sans-serif;
+  --body:"Be Vietnam Pro",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0B1E28; --paper:#12303D; --ink:#E4F2F4; --muted:#9DB8C4; --line:#24505F;
+  --sea:#43C6C4; --sea2:#2BB3B1; --seaSoft:#16434B; --coral:#FF7A63; --coralSoft:#4A2622;
+  --sun:#FFC24B; --sunSoft:#473a1b; --ok:#4FD08A; --okSoft:#173D2A; --bad:#FF7A6A; --badSoft:#4A2320;
+  --cs:#5FD9D6; --csSoft:#16434B; --cz:#FFA070; --czSoft:#4A2E1E; --ci:#B79BFF; --ciSoft:#33274F;
+}}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible,.wd:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+.wrap{max-width:980px;margin:0 auto;padding:16px 16px 90px}
+
+.hero{display:grid;grid-template-columns:1fr auto;gap:18px;background:var(--paper);border:2px solid var(--ink);border-radius:18px;padding:20px 22px;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:10px;background:repeating-linear-gradient(90deg,var(--cs) 0 22px,var(--cz) 22px 44px,var(--ci) 44px 66px)}
+.hero h1{font-family:var(--head);font-weight:800;font-size:clamp(26px,5vw,42px);line-height:1.08;margin:0 0 6px}
+.hero .sub{color:var(--muted);margin:0 0 10px}
+.cue{border-left:4px solid var(--sea2);padding:4px 0 4px 14px}
+.cue ul{margin:4px 0 0;padding-left:20px}
+.stamp{width:118px;height:136px;border:3px dashed var(--coral);border-radius:6px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;font-family:var(--head);transform:rotate(4deg);background:var(--coralSoft);align-self:start}
+.stamp .e{font-size:40px;line-height:1}.stamp .t{font-weight:800;font-size:19px;color:var(--coral)}.stamp .s{font-size:13px;color:var(--muted)}
+@media (max-width:560px){.hero{grid-template-columns:1fr}.stamp{display:none}}
+
+.settings{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;margin:14px 0 6px;font-size:14px;color:var(--muted)}
+.settings select{max-width:230px;padding:5px 8px;border-radius:8px;border:1px solid var(--line);background:var(--paper);color:var(--ink)}
+.settings input[type=range]{accent-color:var(--sea)}
+
+.tabs{display:flex;gap:6px;overflow-x:auto;position:sticky;top:0;z-index:6;background:var(--bg);padding:8px 0;margin-bottom:8px}
+.tab{flex:0 0 auto;border:2px solid var(--line);background:var(--paper);border-radius:999px;padding:7px 14px;font-weight:600;font-size:15px;white-space:nowrap}
+.tab[aria-selected=true]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.panel{display:none}.panel.on{display:block}
+h2{font-family:var(--head);font-weight:800;font-size:26px;margin:10px 0 4px}
+h3{font-family:var(--head);font-weight:700;font-size:20px;margin:18px 0 6px}
+.hint{color:var(--muted);font-size:14px;margin:0 0 12px}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin:10px 0}
+.tip{font-size:14px;margin-top:6px}
+.warn{background:var(--sunSoft);border-radius:10px;padding:8px 12px;font-size:14px}
+
+/* sound colours */
+.c-s{color:var(--cs);background:var(--csSoft)}.c-z{color:var(--cz);background:var(--czSoft)}.c-iz{color:var(--ci);background:var(--ciSoft)}
+.tag{display:inline-block;border-radius:999px;padding:0 9px;font-weight:800;font-size:14px;font-family:"Lucida Sans Unicode","Arial Unicode MS",var(--body)}
+.ipa{font-family:"Lucida Sans Unicode","Arial Unicode MS",var(--body);color:var(--sea);font-size:15px}
+.pos{display:inline-block;background:var(--ink);color:var(--paper);border-radius:6px;padding:0 7px;font-size:13px;font-weight:700;font-style:italic}
+
+/* theory */
+.rules table{width:100%;border-collapse:collapse;font-size:15px}
+.rules td,.rules th{border-bottom:1px solid var(--line);padding:8px;text-align:left;vertical-align:top}
+.rules th{font-family:var(--head);font-size:16px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.chip{border:1.5px solid transparent;border-radius:999px;padding:3px 11px;font-weight:600;font-size:15px}
+.chip i{font-style:normal;font-size:13px;opacity:.85;margin-left:4px;font-family:"Lucida Sans Unicode","Arial Unicode MS",var(--body)}
+.pairs{display:flex;flex-wrap:wrap;gap:8px}
+.throat{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media (max-width:560px){.throat{grid-template-columns:1fr}}
+.throat>div{border-radius:12px;padding:10px 12px}
+
+/* buttons */
+.b{border:1.5px solid var(--line);background:var(--paper);border-radius:10px;padding:5px 11px;font-size:14px;font-weight:600;display:inline-flex;gap:5px;align-items:center}
+.b:hover:not(:disabled){border-color:var(--sea)}
+.b:disabled{opacity:.4;cursor:not-allowed}
+.b.primary{background:var(--sea);border-color:var(--sea);color:#fff}
+.b.rec{border-color:var(--coral);color:var(--coral)}
+.b.rec.on{background:var(--coral);color:#fff;animation:pulse 1.2s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 6px var(--coralSoft)}}
+@media (prefers-reduced-motion:reduce){.b.rec.on{animation:none}}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+
+/* quiz */
+.setscore{background:var(--sunSoft);border-color:var(--sun);font-size:15px}
+.q{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:12px 16px;margin:10px 0}
+.q .qt{display:flex;gap:10px;align-items:flex-start;font-weight:600;margin-bottom:8px}
+.qn{flex:0 0 28px;height:28px;border-radius:50%;background:var(--sea);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{font-size:16px;padding:7px 14px}
+.opt.right{background:var(--okSoft);border-color:var(--ok);color:var(--ok)}
+.opt.wrong{background:var(--badSoft);border-color:var(--bad);color:var(--bad)}
+.q.right{border-color:var(--ok)}.q.wrong{border-color:var(--bad)}
+.fb:not(:empty){margin-top:8px;font-size:15px}
+.rv{margin-top:4px;font-size:15px}
+.q input[type=text]{flex:1 1 200px;min-width:0}
+input[type=text]{padding:9px 12px;border-radius:10px;border:1.5px solid var(--line);font:inherit;background:var(--paper);color:var(--ink);min-width:240px;font-size:18px}
+
+/* word groups & sentences */
+.gcard h3{margin:0 0 6px;display:flex;gap:8px;align-items:center}
+.sent-line{font-size:19px;line-height:1.8}
+.sw{border-radius:6px;padding:0 4px;font-weight:700}
+.sw small{font-size:11px;font-weight:800;margin-left:2px;vertical-align:super;font-family:"Lucida Sans Unicode","Arial Unicode MS",var(--body)}
+
+/* practice bar */
+.pr{margin-top:10px}
+.pr-btns{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.timer{font-variant-numeric:tabular-nums;color:var(--coral);font-weight:700;font-size:14px}
+.live{font-size:14px;color:var(--muted)}.live:not(:empty){margin-top:6px}
+.res:not(:empty){margin-top:8px;padding:10px 12px;border-radius:10px;background:var(--bg)}
+.score{display:inline-block;font-weight:800;border-radius:999px;padding:1px 12px;margin-right:6px;font-size:16px}
+.score.hi{background:var(--okSoft);color:var(--ok)}.score.mid{background:var(--sunSoft);color:#9a6700}.score.lo{background:var(--badSoft);color:var(--bad)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .score.mid{color:var(--sun)}}
+.w-ok{color:var(--ok)}
+.w-no{color:var(--bad);text-decoration:underline wavy;text-underline-offset:3px;cursor:pointer;background:none;border:0;padding:0;font:inherit;font-weight:700}
+.diff{line-height:1.9;margin-top:6px}
+.fixlist{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.fix{border:1px solid var(--bad);background:var(--badSoft);color:var(--bad);border-radius:8px;padding:2px 8px;font-size:14px}
+.selfrate{display:flex;gap:6px;margin-top:6px;flex-wrap:wrap}
+.sent-ok{color:var(--ok);font-size:13px;font-weight:600}.sent-wait{color:var(--muted);font-size:13px}.sent-bad{color:var(--bad);font-size:13px}
+
+/* paragraph */
+.wcard{position:sticky;top:56px;z-index:4;border:2px solid var(--sea);min-height:64px}
+.wc-top{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.wc-w{font-family:var(--head);font-weight:800;font-size:24px}
+.wc-vi{font-size:17px;margin-top:2px}
+.ptext{font-size:19px;line-height:2}
+.wd{cursor:pointer;border-radius:5px;padding:0 1px;border-bottom:1.5px dotted var(--sea2)}
+.wd:hover{background:var(--sunSoft)}
+.wd.on{background:var(--sun);color:#10304A}
+.hl .wd.pl{font-weight:700;border-bottom:2px solid currentColor}
+.hl .wd[data-c=s]{color:var(--cs);background:var(--csSoft)}
+.hl .wd[data-c=z]{color:var(--cz);background:var(--czSoft)}
+.hl .wd[data-c=iz]{color:var(--ci);background:var(--ciSoft)}
+.hl .wd.pl::after{content:attr(data-pl);font-size:11px;font-weight:800;vertical-align:super;margin-left:2px}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px;color:var(--muted);margin:6px 0}
+.legend b{color:var(--ink)}
+details.sents summary{cursor:pointer;font-weight:700;margin:6px 0}
+.sline{border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin:8px 0;background:var(--paper)}
+
+/* submit */
+.tbl{overflow-x:auto}
+table.sum{border-collapse:collapse;width:100%;font-size:14px}
+table.sum td,table.sum th{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+.rv-item{border:1px solid var(--line);border-radius:10px;padding:8px 12px;margin:6px 0;font-size:14px;background:var(--paper)}
+.rv-item.ok{border-color:var(--ok);background:var(--okSoft)}.rv-item.no{border-color:var(--bad);background:var(--badSoft)}
+.steps{counter-reset:s;list-style:none;padding:0}
+.steps li{counter-increment:s;display:flex;gap:10px;align-items:center;margin:8px 0}
+.steps li::before{content:counter(s);flex:0 0 30px;height:30px;border-radius:50%;background:var(--sea);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--paper);padding:10px 16px;border-radius:12px;font-size:14px;z-index:30;display:none;max-width:90%}
+.cloud{position:fixed;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));background:var(--paper);border:1.5px solid var(--line);border-radius:999px;padding:6px 12px;font-size:13px;font-weight:600;z-index:15;box-shadow:0 2px 8px rgba(16,48,74,.12)}
+.gate{position:fixed;inset:0;background:rgba(11,30,40,.55);z-index:40;display:flex;align-items:center;justify-content:center;padding:16px}
+.gate-box{background:var(--paper);border:2px solid var(--ink);border-radius:18px;padding:22px;max-width:380px;width:100%;text-align:center}
+.gate-box input{width:100%;min-width:0}
+[hidden]{display:none!important}
+
+
+/* ===== Unit 3 bổ sung ===== */
+.en-q{font-weight:700;font-size:17px}
+.vi-s{font-size:14px;color:var(--muted);font-weight:400;margin-top:2px}
+.frame{background:var(--sunSoft);border-radius:10px;padding:8px 12px;margin:8px 0;font-size:15px;font-weight:600}
+.q textarea{width:100%;min-height:70px;border-radius:10px;border:1.5px solid var(--line);padding:9px 12px;font:inherit;font-size:17px;background:var(--paper);color:var(--ink);resize:vertical;margin:8px 0}
+.fbox:not(:empty){margin-top:8px}
+.verdict{border-radius:10px;padding:8px 12px;font-weight:700;margin-bottom:6px}
+.verdict.ok{background:var(--okSoft);color:var(--ok)}
+.verdict.no{background:var(--badSoft);color:var(--bad)}
+.fi{display:flex;gap:8px;align-items:flex-start;padding:6px 10px;border-radius:10px;margin:4px 0;font-size:15px;border:1px solid var(--line);background:var(--paper)}
+.fi.k-err{border-color:var(--bad)}
+.fi.k-logic{border-color:#8a5cf6;background:var(--ciSoft)}
+.fi.k-content{border-color:var(--sun);background:var(--sunSoft)}
+.fi.k-ok{border-color:var(--ok);background:var(--okSoft)}
+.fic{flex:0 0 auto}
+.ex{font-family:"Lucida Sans Unicode","Arial Unicode MS",var(--body);font-size:14px;color:var(--bad);margin-top:2px;font-weight:600}
+.fixed{margin-top:8px;border:1.5px dashed var(--sea);border-radius:10px;padding:8px 12px;font-size:15px}
+.fixed .fx{margin-top:4px;font-size:17px;font-weight:600;color:var(--ink)}
+.mbox{margin-top:8px;border-radius:10px;background:var(--seaSoft);padding:8px 12px;font-size:15px}
+.wcard{position:sticky;top:56px;z-index:4;border:2px solid var(--sea);min-height:64px}
+.wc-top{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.wc-w{font-family:var(--head);font-weight:800;font-size:24px}
+.wc-vi{font-size:17px;margin-top:2px}
+.ptext{font-size:19px;line-height:2}
+.wd{cursor:pointer;border-radius:5px;padding:0 1px;border-bottom:1.5px dotted var(--sea2)}
+.wd:hover{background:var(--sunSoft)}
+.wd.on{background:var(--sun);color:#10304A}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px;color:var(--muted);margin:6px 0}
+.legend b{color:var(--ink)}
+.chipw{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:0 9px;margin:2px 0;font-size:13px;background:var(--sunSoft)}
+.mws{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px;margin-top:8px}
+.mw{border:1px solid var(--line);border-radius:10px;padding:6px 10px;background:var(--paper)}
+.lvl{display:inline-block;background:var(--ink);color:var(--paper);border-radius:999px;padding:1px 12px;font-weight:700;font-size:14px;margin-bottom:6px}
+details.sents summary{cursor:pointer;font-weight:700;margin:8px 0 4px}
+.sline{border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin:8px 0;background:var(--paper)}
+.rv-item.no{border-color:var(--bad);background:var(--badSoft)}
+.rv-item.ok{border-color:var(--ok);background:var(--okSoft)}
+
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div>
+    <h1>Unit 3: Teenagers</h1>
+    <p class="sub">Global Success 8 · Tự học: Warm-up · Reading · Đọc to</p>
+    <div class="cue">
+      <b>Bài này gồm 4 phần:</b>
+      <ul>
+        <li>① Warm-up: trả lời 3 câu hỏi về teenagers</li>
+        <li>② Reading 1 và ③ Reading 2: đọc, bấm vào từ để xem nghĩa, trả lời câu hỏi</li>
+        <li>④ Đọc to 3 câu trả lời (từ dễ đến khó), máy chấm phát âm</li>
+        <li>✏️ Gõ câu trả lời → bấm <b>Kiểm tra</b> → sửa lỗi → kiểm tra lại → <b>Nộp bài</b></li>
+      </ul>
+    </div>
+  </div>
+  <div class="stamp" aria-hidden="true"><span class="e">📱</span><span class="t">Unit 3</span><span class="s">Teenagers</span></div>
+</header>
+
+<div class="settings">
+  <label>Giọng đọc: <select id="voiceSel"><option>Đang tải giọng…</option></select></label>
+  <label>Tốc độ: <input id="rate" type="range" min="0.6" max="1.15" step="0.05" value="0.9"> <span id="rateV">0.9</span></label>
+</div>
+
+<nav class="tabs" role="tablist">
+  <button class="tab" role="tab" data-p="warm" aria-selected="true">① Warm-up</button>
+  <button class="tab" role="tab" data-p="r1" aria-selected="false">② Reading 1</button>
+  <button class="tab" role="tab" data-p="r2" aria-selected="false">③ Reading 2</button>
+  <button class="tab" role="tab" data-p="aloud" aria-selected="false">④ Đọc to</button>
+  <button class="tab" role="tab" data-p="send" aria-selected="false">📨 Nộp bài</button>
+</nav>
+
+<section class="panel on" id="p-warm">
+  <h2>① Warm-up</h2>
+  <p class="hint">Trả lời 3 câu hỏi về teenagers bằng tiếng Anh. Gõ xong bấm <b>✓ Kiểm tra</b>: máy chỉ ra lỗi ngữ pháp, chỗ thiếu ý và lỗi logic. Em sửa lại rồi kiểm tra tiếp. Cần giúp thì bấm 💡 Gợi ý câu.</p>
+  <div id="warmBox"></div>
+</section>
+
+<section class="panel" id="p-r1">
+  <h2>② Reading 1: The Good Side of Social Media</h2>
+  <p class="hint">Bấm vào <b>bất kỳ từ nào</b> để xem phiên âm, loại từ và nghĩa tiếng Việt.</p>
+  <div class="card wcard" id="wc-r1"><span class="hint" style="margin:0">👆 Bấm vào một từ trong bài đọc bên dưới.</span></div>
+  <div class="legend"><span><b>n</b> danh từ</span><span><b>v</b> động từ</span><span><b>modal</b> động từ khuyết thiếu</span><span><b>adj</b> tính từ</span><span><b>adv</b> trạng từ</span><span><b>prep</b> giới từ</span><span><b>conj</b> liên từ</span><span><b>pron</b> đại từ</span><span><b>det</b> từ hạn định</span><span><b>art</b> mạo từ</span><span><b>num</b> số từ</span></div>
+  <div class="card" id="r1Pass"></div>
+  <h3>Questions</h3>
+  <div id="r1Q"></div>
+</section>
+
+<section class="panel" id="p-r2">
+  <h2>③ Reading 2: The Challenges of Being Online</h2>
+  <p class="hint">Bấm vào <b>bất kỳ từ nào</b> để xem phiên âm, loại từ và nghĩa tiếng Việt.</p>
+  <div class="card wcard" id="wc-r2"><span class="hint" style="margin:0">👆 Bấm vào một từ trong bài đọc bên dưới.</span></div>
+  <div class="legend"><span><b>n</b> danh từ</span><span><b>v</b> động từ</span><span><b>modal</b> động từ khuyết thiếu</span><span><b>adj</b> tính từ</span><span><b>adv</b> trạng từ</span><span><b>prep</b> giới từ</span><span><b>conj</b> liên từ</span><span><b>pron</b> đại từ</span><span><b>det</b> từ hạn định</span><span><b>art</b> mạo từ</span><span><b>num</b> số từ</span></div>
+  <div class="card" id="r2Pass"></div>
+  <h3>Questions</h3>
+  <div id="r2Q"></div>
+</section>
+
+<section class="panel" id="p-aloud">
+  <h2>④ Đọc to</h2>
+  <p class="hint">Ba câu hỏi nêu quan điểm, độ khó tăng dần. Nghe mẫu 🔊 → đọc theo → bấm 🎙 ghi âm. Máy chấm điểm % và chỉ ra <b>âm em chưa đọc tốt</b>. Nghe lại bản của mình, thấy ổn thì bấm 📤 Gửi. Bấm vào từ bất kỳ để xem nghĩa.</p>
+  <div class="card wcard" id="wc-a"><span class="hint" style="margin:0">👆 Bấm vào một từ để xem nghĩa.</span></div>
+  <div id="aloudBox"></div>
+</section>
+
+<section class="panel" id="p-send">
+  <h2>📨 Nộp bài</h2>
+  <ol class="steps">
+    <li>Em ghi họ tên:&nbsp;<input type="text" id="stuName" placeholder="Họ và tên" autocomplete="name"></li>
+    <li>Kiểm tra bảng kết quả bên dưới (còn bản ghi âm chưa gửi thì quay lại gửi).</li>
+    <li><button class="b primary" id="submitBtn" style="font-size:16px;padding:8px 16px">📨 Nộp bài cho thầy/cô</button></li>
+  </ol>
+  <p id="submitMsg" class="tip"></p>
+  <p id="noUrl" class="warn" hidden>⚙️ Trang này chưa được cài link nhận bài.</p>
+  <div class="card"><div id="sumBox"></div></div>
+  <div class="row"><button class="b" id="reviewBtn">🔍 Xem lại bài của em</button></div>
+  <div id="reviewBox"></div>
+</section>
+
+</div>
+
+<div class="toast" id="toast" role="status"></div>
+<div class="cloud" id="cloud" hidden></div>
+
+<div class="gate" id="gate" hidden>
+  <div class="gate-box">
+    <div style="font-size:42px">📱🎧</div>
+    <h2 style="margin:4px 0">Chào em!</h2>
+    <p>Em hãy ghi tên để thầy/cô nhận được bài của em.</p>
+    <input type="text" id="gateName" placeholder="Họ và tên" autocomplete="name">
+    <p class="tip">Khi bấm ghi âm, trình duyệt sẽ hỏi quyền micro. Em bấm <b>Cho phép</b>.</p>
+    <button class="b primary" id="gateGo" style="font-size:17px;padding:8px 20px;margin-top:6px">Bắt đầu</button>
+  </div>
+</div>
+
+<script>
+/* ===== DỮ LIỆU BÀI UNIT 3 (SCRIPT_URL giữ nguyên; LESSON = tên thư mục trên Drive) ===== */
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwnf8X3_Xfk9F_8HQtBwSFU_s28sRjxKb0aFaHCA4ybmMJvgaztBAbdvaFzITdbVXBt/exec';
+const LESSON = 'L8 U3 Teenagers';
+
+/* DICT: từ → [loại từ, IPA, nghĩa tiếng Việt] */
+const DICT = {
+ 'social':['adj','/ˈsəʊʃl/','thuộc xã hội'],
+ 'media':['n','/ˈmiːdiə/','phương tiện truyền thông (social media: mạng xã hội)'],
+ 'is':['v','/ɪz/','thì, là'],
+ 'a':['art','/ə/','một'],
+ 'big':['adj','/bɪɡ/','lớn'],
+ 'part':['n','/pɑːt/','phần, một phần'],
+ 'of':['prep','/əv/','của'],
+ 'life':['n','/laɪf/','cuộc sống'],
+ 'for':['prep','/fɔː/','cho, đối với'],
+ 'teenagers':['n','/ˈtiːneɪdʒəz/','thanh thiếu niên'],
+ 'teens':['n','/tiːnz/','thanh thiếu niên (nói gọn)'],
+ 'today':['adv','/təˈdeɪ/','ngày nay, hôm nay'],
+ 'it':['pron','/ɪt/','nó'],
+ 'brings':['v','/brɪŋz/','mang lại'],
+ 'many':['det','/ˈmeni/','nhiều'],
+ 'benefits':['n','/ˈbenɪfɪts/','những lợi ích'],
+ 'first':['adv','/fɜːst/','đầu tiên, thứ nhất'],
+ 'helps':['v','/helps/','giúp, giúp đỡ'],
+ 'help':['v','/help/','giúp, giúp đỡ'],
+ 'connect':['v','/kəˈnekt/','kết nối'],
+ 'with':['prep','/wɪð/','với, cùng với'],
+ 'friends':['n','/frendz/','những người bạn'],
+ 'and':['conj','/ænd/','và'],
+ 'family':['n','/ˈfæməli/','gia đình'],
+ 'even':['adv','/ˈiːvn/','thậm chí'],
+ 'those':['pron','/ðəʊz/','những người/vật đó'],
+ 'who':['pron','/huː/','người mà, ai'],
+ 'live':['v','/lɪv/','sống'],
+ 'far':['adv','/fɑː/','xa'],
+ 'away':['adv','/əˈweɪ/','xa, đi xa'],
+ 'you':['pron','/juː/','bạn'],
+ 'can':['modal','/kæn/','có thể'],
+ 'share':['v','/ʃeə/','chia sẻ'],
+ 'photos':['n','/ˈfəʊtəʊz/','những bức ảnh'],
+ 'videos':['n','/ˈvɪdiəʊz/','những video'],
+ 'messages':['n','/ˈmesɪdʒɪz/','những tin nhắn'],
+ 'instantly':['adv','/ˈɪnstəntli/','ngay lập tức'],
+ 'second':['adv','/ˈsekənd/','thứ hai'],
+ 'great':['adj','/ɡreɪt/','tuyệt vời'],
+ 'place':['n','/pleɪs/','nơi, chỗ'],
+ 'to':['prep','/tuː/','để; đến'],
+ 'learn':['v','/lɜːn/','học, học hỏi'],
+ 'follow':['v','/ˈfɒləʊ/','theo dõi'],
+ 'educational':['adj','/ˌedʒuˈkeɪʃənl/','mang tính giáo dục'],
+ 'profiles':['n','/ˈprəʊfaɪlz/','trang cá nhân, hồ sơ'],
+ 'on':['prep','/ɒn/','trên, ở trên'],
+ 'youtube':['n','/ˈjuːtjuːb/','YouTube (trang chia sẻ video)'],
+ 'or':['conj','/ɔː/','hoặc'],
+ 'tiktok':['n','/ˈtɪktɒk/','TikTok (ứng dụng video ngắn)'],
+ 'new':['adj','/njuː/','mới'],
+ 'skills':['n','/skɪlz/','những kỹ năng'],
+ 'like':['prep','/laɪk/','như, chẳng hạn như'],
+ 'cooking':['n','/ˈkʊkɪŋ/','việc nấu ăn'],
+ 'drawing':['n','/ˈdrɔːɪŋ/','việc vẽ'],
+ 'english':['n','/ˈɪŋɡlɪʃ/','tiếng Anh'],
+ 'finally':['adv','/ˈfaɪnəli/','cuối cùng'],
+ 'allows':['v','/əˈlaʊz/','cho phép'],
+ 'express':['v','/ɪkˈspres/','thể hiện, bày tỏ'],
+ 'themselves':['pron','/ðəmˈselvz/','bản thân họ'],
+ 'show':['v','/ʃəʊ/','cho thấy, thể hiện'],
+ 'your':['det','/jɔː/','của bạn'],
+ 'hobbies':['n','/ˈhɒbiz/','những sở thích'],
+ 'interests':['n','/ˈɪntrəsts/','mối quan tâm, sở thích'],
+ 'the':['art','/ðə/','(mạo từ xác định)'],
+ 'world':['n','/wɜːld/','thế giới'],
+ 'however':['adv','/haʊˈevə/','tuy nhiên'],
+ 'must':['modal','/mʌst/','phải'],
+ 'remember':['v','/rɪˈmembə/','nhớ'],
+ 'keep':['v','/kiːp/','giữ'],
+ 'privacy':['n','/ˈprɪvəsi/','sự riêng tư'],
+ 'safe':['adj','/seɪf/','an toàn'],
+ 'by':['prep','/baɪ/','bằng cách'],
+ 'not':['adv','/nɒt/','không'],
+ 'sharing':['v','/ˈʃeərɪŋ/','chia sẻ (dạng V-ing)'],
+ 'too':['adv','/tuː/','quá'],
+ 'much':['det','/mʌtʃ/','nhiều'],
+ 'personal':['adj','/ˈpɜːsənl/','cá nhân'],
+ 'information':['n','/ˌɪnfəˈmeɪʃn/','thông tin'],
+ 'despite':['prep','/dɪˈspaɪt/','mặc dù'],
+ 'also':['adv','/ˈɔːlsəʊ/','cũng'],
+ 'has':['v','/hæz/','có'],
+ 'dark':['adj','/dɑːk/','tối, đen tối'],
+ 'side':['n','/saɪd/','mặt, phía'],
+ 'one':['num','/wʌn/','một'],
+ 'major':['adj','/ˈmeɪdʒə/','chính, lớn'],
+ 'problem':['n','/ˈprɒbləm/','vấn đề'],
+ 'that':['conj','/ðæt/','rằng, là'],
+ 'be':['v','/biː/','thì, là, ở'],
+ 'very':['adv','/ˈveri/','rất'],
+ 'addictive':['adj','/əˈdɪktɪv/','gây nghiện'],
+ 'spend':['v','/spend/','dành (thời gian)'],
+ 'screen':['n','/skriːn/','màn hình'],
+ 'time':['n','/taɪm/','thời gian'],
+ 'scrolling':['v','/ˈskrəʊlɪŋ/','lướt (màn hình)'],
+ 'through':['prep','/θruː/','qua, xuyên qua'],
+ 'their':['det','/ðeə/','của họ'],
+ 'phones':['n','/fəʊnz/','những chiếc điện thoại'],
+ 'which':['pron','/wɪtʃ/','điều mà, cái mà'],
+ 'hurt':['v','/hɜːt/','làm đau, gây hại'],
+ 'eyes':['n','/aɪz/','đôi mắt'],
+ 'sleep':['n','/sliːp/','giấc ngủ'],
+ 'another':['det','/əˈnʌðə/','một cái khác'],
+ 'serious':['adj','/ˈsɪəriəs/','nghiêm trọng'],
+ 'issue':['n','/ˈɪʃuː/','vấn đề'],
+ 'cyberbullying':['n','/ˈsaɪbəbʊliɪŋ/','bắt nạt trên mạng'],
+ 'some':['det','/sʌm/','một vài'],
+ 'people':['n','/ˈpiːpl/','mọi người'],
+ 'leave':['v','/liːv/','để lại; rời đi'],
+ 'mean':['adj','/miːn/','xấu tính, ác ý'],
+ 'comments':['n','/ˈkɒments/','những bình luận'],
+ 'online':['adv','/ˌɒnˈlaɪn/','trực tuyến, trên mạng'],
+ 'makes':['v','/meɪks/','khiến cho, làm cho'],
+ 'sad':['adj','/sæd/','buồn'],
+ 'stressed':['adj','/strest/','căng thẳng'],
+ 'fomo':['n','/ˈfəʊməʊ/','nỗi sợ bị bỏ lỡ (FOMO)'],
+ 'cause':['v','/kɔːz/','gây ra'],
+ 'when':['conj','/wen/','khi'],
+ 'see':['v','/siː/','nhìn thấy'],
+ 'pictures':['n','/ˈpɪktʃəz/','những bức hình'],
+ 'having':['v','/ˈhævɪŋ/','đang có'],
+ 'fun':['n','/fʌn/','niềm vui'],
+ 'without':['prep','/wɪˈðaʊt/','không có, thiếu'],
+ 'them':['pron','/ðem/','họ, chúng'],
+ 'they':['pron','/ðeɪ/','họ'],
+ 'might':['modal','/maɪt/','có thể (khả năng thấp hơn can)'],
+ 'feel':['v','/fiːl/','cảm thấy'],
+ 'left':['adj','/left/','bị bỏ lại (feel left out: cảm thấy bị bỏ rơi)'],
+ 'out':['adv','/aʊt/','ra ngoài'],
+ 'therefore':['adv','/ˈðeəfɔː/','vì vậy'],
+ 'important':['adj','/ɪmˈpɔːtnt/','quan trọng'],
+ 'find':['v','/faɪnd/','tìm ra, tìm thấy'],
+ 'healthy':['adj','/ˈhelθi/','lành mạnh, khỏe mạnh'],
+ 'balance':['n','/ˈbæləns/','sự cân bằng'],
+ 'between':['prep','/bɪˈtwiːn/','giữa'],
+ 'real':['adj','/rɪəl/','thật, thực tế'],
+ 'we':['pron','/wiː/','chúng tôi, chúng ta'],
+ 'in':['prep','/ɪn/','trong, ở'],
+ 'my':['det','/maɪ/','của tôi'],
+ 'opinion':['n','/əˈpɪnjən/','ý kiến, quan điểm'],
+ 'both':['det','/bəʊθ/','cả hai'],
+ 'helpful':['adj','/ˈhelpfl/','hữu ích'],
+ 'harmful':['adj','/ˈhɑːmfl/','có hại'],
+ 'should':['modal','/ʃʊd/','nên'],
+ 'use':['v','/juːz/','sử dụng'],
+ 'carefully':['adv','/ˈkeəfəli/','cẩn thận'],
+ 'limit':['v','/ˈlɪmɪt/','giới hạn, hạn chế'],
+ 'because':['conj','/bɪˈkɒz/','bởi vì'],
+ 'long':['adv','/lɒŋ/','lâu, dài'],
+ 'second':['adv','/ˈsekənd/','thứ hai'],
+ 'never':['adv','/ˈnevə/','không bao giờ'],
+ 'more':['adv','/mɔː/','nhiều hơn'],
+ 'face':['n','/feɪs/','khuôn mặt (face to face: trực tiếp, gặp mặt)'],
+ 'so':['conj','/səʊ/','nên, vì vậy'],
+ 'do':['v','/duː/','làm (trợ động từ: do not = không)'],
+ 'are':['v','/ɑː/','thì, là (số nhiều)'],
+ 'what':['pron','/wɒt/','cái gì'],
+ 'good':['adj','/ɡʊd/','tốt'],
+ 'thing':['n','/θɪŋ/','điều, thứ'],
+ 'about':['prep','/əˈbaʊt/','về'],
+ 'bad':['adj','/bæd/','xấu, tệ'],
+ 'sides':['n','/saɪdz/','những mặt, những phía'],
+ 'this':['pron','/ðɪs/','cái này, điều này'],
+ 'time':['n','/taɪm/','thời gian']
+};
+
+/* Warm-up: 3 câu */
+const WARM = [
+ {id:'w1', chk:'warm1', minWords:6,
+  en:'Do you have your own smartphone? (If you have, how did you have it?)',
+  vi:'Bạn có điện thoại thông minh riêng không? (Nếu có, bạn có nó bằng cách nào?)',
+  frame:'Yes, I do. My parents bought/gave me a smartphone on … / No, I don\'t. I use my … phone when I need it.',
+  model:'Yes, I do. My parents bought me a smartphone on my twelfth birthday because I got good marks at school.',
+  modelVi:'Có. Bố mẹ mua cho mình một chiếc điện thoại thông minh vào sinh nhật lần thứ mười hai vì mình đạt điểm cao ở trường. (Nếu chưa có: "No, I don\'t. I usually use my mother\'s phone when I need it.")'},
+ {id:'w2', chk:'warm2', minWords:8,
+  en:'How many hours a day do you usually spend on your phone? What do you usually do on it?',
+  vi:'Bạn thường dành bao nhiêu tiếng mỗi ngày cho điện thoại? Bạn thường làm gì trên đó?',
+  frame:'I usually spend about … hours a day on my phone. I often … and …',
+  model:'I usually spend about two hours a day on my phone. I mainly watch videos on YouTube, chat with my friends and sometimes do my homework.',
+  modelVi:'Mình thường dành khoảng hai tiếng mỗi ngày cho điện thoại. Mình chủ yếu xem video trên YouTube, trò chuyện với bạn bè và thỉnh thoảng làm bài tập.'},
+ {id:'w3', chk:'warm3', minWords:12,
+  en:'Do you think social media makes you feel happier or more stressed? Why?',
+  vi:'Bạn nghĩ mạng xã hội khiến bạn vui hơn hay căng thẳng hơn? Tại sao?',
+  frame:'I think social media makes me … because … (However, …)',
+  model:'I think social media makes me happier because I can chat with my friends and watch funny videos. However, when I spend too much time on it, I feel tired.',
+  modelVi:'Mình nghĩ mạng xã hội khiến mình vui hơn vì mình có thể trò chuyện với bạn bè và xem video hài. Tuy nhiên, khi dành quá nhiều thời gian cho nó, mình thấy mệt.'}
+];
+
+const READ1 = {
+ title:'The Good Side of Social Media',
+ text:'Social media is a big part of life for teenagers today. It brings many benefits. First, it helps teens connect with friends and family, even those who live far away. You can share photos, videos, and messages instantly. Second, social media is a great place to learn. Many teenagers follow educational profiles on YouTube or TikTok to learn new skills like cooking, drawing, or even English. Finally, it allows teens to express themselves. You can show your hobbies and interests to the world. However, you must remember to keep your privacy safe by not sharing too much personal information.',
+ qs:[
+  {id:'r1q1', chk:'r1q1', short:true, allowVi:true, minWords:1,
+   en:'What does "It" in the sentence "It brings many benefits" refer to?',
+   vi:'"It" trong câu "It brings many benefits" là gì?',
+   frame:'"It" refers to …',
+   model:'"It" refers to social media.',
+   modelVi:'"It" thay cho "social media" (mạng xã hội) ở câu đứng ngay trước.'},
+  {id:'r1q2', chk:'r1q2', minWords:6,
+   en:'Name two benefits of using social media.',
+   vi:'Kể tên 2 lợi ích của việc sử dụng social media.',
+   frame:'Two benefits are … and … (It helps teens … It is …)',
+   model:'Two benefits are that it helps teens connect with friends and family, and that it is a great place to learn new skills such as cooking, drawing or English.',
+   modelVi:'Hai lợi ích là: giúp thanh thiếu niên kết nối với bạn bè và gia đình, và là nơi tuyệt vời để học các kỹ năng mới như nấu ăn, vẽ hoặc tiếng Anh. (Lợi ích thứ ba trong bài: giúp các em thể hiện bản thân.)'},
+  {id:'r1q3', chk:'r1q3', minWords:12,
+   en:'Should you share your personal information online? Give your own opinion and explain why or why not.',
+   vi:'Bạn có nên chia sẻ thông tin cá nhân của bạn lên mạng không? Nêu ý kiến của riêng bạn: tại sao có hoặc tại sao không?',
+   frame:'I think I should / shouldn\'t share … online because …',
+   model:'I think teenagers should not share too much personal information online because strangers or bad people can use it to hurt them. I only share photos with my close friends.',
+   modelVi:'Mình nghĩ thanh thiếu niên không nên chia sẻ quá nhiều thông tin cá nhân trên mạng vì người lạ hoặc kẻ xấu có thể dùng nó để làm hại mình. Mình chỉ chia sẻ ảnh với những người bạn thân.'}
+ ]
+};
+
+const READ2 = {
+ title:'The Challenges of Being Online',
+ text:'Despite the benefits, social media also has a dark side. One major problem is that it can be very addictive. Many teens spend too much screen time scrolling through their phones, which can hurt their eyes and sleep. Another serious issue is cyberbullying. Some people leave mean comments online, which makes teens feel sad and stressed. Also, social media can cause FOMO. When teens see pictures of their friends having fun without them, they might feel left out. Therefore, it is very important to find a healthy balance between the online world and real life.',
+ qs:[
+  {id:'r2q1', chk:'r2q1', minWords:3,
+   en:'What happens to your eyes if you use social media for a long time?',
+   vi:'Dùng social media trong thời gian dài thì mắt bị làm sao?',
+   frame:'It can … their eyes. / Your eyes can …',
+   model:'It can hurt their eyes (and their sleep).',
+   modelVi:'Nó có thể làm đau/hại mắt (và ảnh hưởng giấc ngủ).'},
+  {id:'r2q2', chk:'r2q2', minWords:3,
+   en:'What do we call a person who often uses mean words and bullies others online?',
+   vi:'Người hay dùng lời lẽ xấu, bắt nạt người khác trên mạng gọi là gì?',
+   frame:'He/She is called a …',
+   model:'A person who uses mean words and bullies others online is called a cyberbully. (The bad behaviour is called cyberbullying.)',
+   modelVi:'Người đó gọi là "cyberbully" (kẻ bắt nạt trên mạng). Hành vi bắt nạt gọi là "cyberbullying".'},
+  {id:'r2q3', chk:'r2q3', minWords:12,
+   en:'How can we keep a balance between the online world and real life? What do you think we should do?',
+   vi:'Làm thế nào để cân bằng giữa thế giới mạng và cuộc sống thật? Bạn nghĩ nên làm gì?',
+   frame:'I think teenagers should … They should also … because …',
+   model:'I think teenagers should limit their screen time and set a time for using their phones. They should also go outside, play sports and spend more time with their family and friends in real life.',
+   modelVi:'Mình nghĩ thanh thiếu niên nên hạn chế thời gian nhìn màn hình và đặt giờ sử dụng điện thoại. Các em cũng nên ra ngoài, chơi thể thao và dành nhiều thời gian hơn cho gia đình và bạn bè ngoài đời thực.'}
+ ]
+};
+
+/* Đọc to: 3 mức tăng dần */
+const ALOUD = [
+ {id:'a1', level:'Level 1 · Dễ', stars:'⭐',
+  q:'What is one good thing about social media?', qvi:'Một điều tốt của mạng xã hội là gì?',
+  a:'Social media helps teenagers connect with friends and family. We can share photos and messages instantly.'},
+ {id:'a2', level:'Level 2 · Vừa', stars:'⭐⭐',
+  q:'Is social media good or bad for teenagers?', qvi:'Mạng xã hội tốt hay xấu đối với thanh thiếu niên?',
+  a:'In my opinion, social media is both helpful and harmful. It helps teenagers learn new skills and express themselves. However, it can be addictive, and some people leave mean comments online. Therefore, teens should use it carefully.'},
+ {id:'a3', level:'Level 3 · Khó', stars:'⭐⭐⭐',
+  q:'How can teenagers use social media in a healthy way?', qvi:'Thanh thiếu niên có thể dùng mạng xã hội theo cách lành mạnh như thế nào?',
+  a:'In my opinion, teenagers should find a healthy balance between the online world and real life. First, they should limit their screen time, because scrolling for too long can hurt their eyes and sleep. Second, they should keep their privacy safe and never share too much personal information. Finally, they should spend more time with friends and family face to face, so they do not feel left out.'}
+];
+/* ===== HẾT DỮ LIỆU ===== */
+
+/* ================= TIỆN ÍCH ================= */
+const $ = s=>document.querySelector(s);
+function h(tag,attrs={},html){const e=document.createElement(tag);for(const k in attrs){if(k==='class')e.className=attrs[k];else e.setAttribute(k,attrs[k]);}if(html!=null)e.innerHTML=html;return e;}
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));}
+function plain(html){const d=document.createElement('div');d.innerHTML=html;return d.textContent.trim();}
+function toast(msg,ms=3500){const t=$('#toast');t.textContent=msg;t.style.display='block';clearTimeout(toast._t);toast._t=setTimeout(()=>t.style.display='none',ms);}
+function store(k,v){try{localStorage.setItem('pa-'+LESSON+':'+k,JSON.stringify(v));}catch(e){}}
+function load(k,d){try{const v=localStorage.getItem('pa-'+LESSON+':'+k);return v?JSON.parse(v):d;}catch(e){return d;}}
+function wc(s){return String(s||'').trim().split(/\s+/).filter(Boolean).length;}
+function sentPlain(s){return s.replace(/\{([^|}]+)\|(\w+)\}/g,'$1');}
+
+/* ================= CHUẨN HOÁ & CHẤM ================= */
+const CONTR={"i'd":"i would","i'm":"i am","it's":"it is","don't":"do not","can't":"cannot","i'll":"i will"};
+const NUM={"1":"one","2":"two","3":"three","4":"four","5":"five","6":"six","7":"seven","8":"eight","9":"nine","10":"ten"};
+const ALIAS={ok:"okay",tee:"t",favourite:"favorite"};
+function normWord(w){
+  w=w.toLowerCase().replace(/[’`]/g,"'").replace(/[^a-z0-9']/g,'');
+  if(!w)return[];
+  if(CONTR[w])return CONTR[w].split(' ');
+  if(NUM[w])return[NUM[w]];
+  if(ALIAS[w])return ALIAS[w].split(' ');
+  w=w.replace(/'/g,'');
+  return w?[w]:[];
+}
+function tokenize(text){
+  const disp=text.replace(/—/g,' — ').split(/\s+/).filter(Boolean);
+  const toks=[];
+  disp.forEach((d,i)=>{d.split(/[-—]/).forEach(p=>normWord(p).forEach(t=>toks.push({t,i})));});
+  return {disp,toks};
+}
+function spokenTokens(text){const out=[];String(text).replace(/[-—]/g,' ').split(/\s+/).forEach(w=>normWord(w).forEach(t=>out.push(t)));return out;}
+function compare(target,spoken){
+  const {disp,toks}=tokenize(target);
+  const sp=spokenTokens(spoken||'');
+  const n=toks.length,m=sp.length;
+  const L=Array.from({length:n+1},()=>new Uint16Array(m+1));
+  for(let i=n-1;i>=0;i--)for(let j=m-1;j>=0;j--)L[i][j]=toks[i].t===sp[j]?L[i+1][j+1]+1:Math.max(L[i+1][j],L[i][j+1]);
+  const matched=new Array(n).fill(false);let i=0,j=0;
+  while(i<n&&j<m){if(toks[i].t===sp[j]){matched[i]=true;i++;j++;}else if(L[i+1][j]>=L[i][j+1])i++;else j++;}
+  const dispOk=disp.map(()=>true),dispHas=disp.map(()=>false);
+  toks.forEach((tk,k)=>{dispHas[tk.i]=true;if(!matched[k])dispOk[tk.i]=false;});
+  const got=m?matched.filter(Boolean).length:0;
+  const score=n?Math.round(got/n*100):0;
+  const missed=[];
+  const html=disp.map((d,k)=>{
+    if(!dispHas[k])return esc(d);
+    if(dispOk[k])return `<span class="w-ok">${esc(d)}</span>`;
+    const clean=d.replace(/[^A-Za-z'’-]/g,'');missed.push(clean);
+    return `<button class="w-no" data-say="${esc(clean)}" title="Bấm để nghe từ này">${esc(d)}</button>`;
+  }).join(' ');
+  return {score,html,missed:[...new Set(missed.map(x=>x.toLowerCase()))]};
+}
+
+/* ================= GIỌNG ĐỌC ================= */
+let VOICES=[],EN_VOICE=null;
+const synth=window.speechSynthesis;
+function rankVoice(v){
+  if(!/^en/i.test(v.lang))return -1;let s=0;const n=v.name;
+  if(/en[-_](US|GB)/i.test(v.lang))s+=10;
+  if(/Natural|Neural|Online|Premium|Enhanced/i.test(n))s+=30;
+  if(/Google/i.test(n))s+=18;
+  if(/Samantha|Ava|Allison|Serena|Daniel|Karen|Moira|Aria|Jenny|Guy|Libby|Sonia|Emma|Brian|Ryan/i.test(n))s+=15;
+  if(/Fred|Albert|Bad News|Bells|Boing|Bubbles|Cellos|Jester|Organ|Trinoids|Whisper|Zarvox|Wobble|Superstar|Junior|Ralph|Kathy|Grandma|Grandpa|Rocko|Shelley|Flo|Eddy|Reed|Sandy/i.test(n))s-=40;
+  return s;
+}
+function loadVoices(){
+  if(!synth)return;
+  VOICES=synth.getVoices();
+  const en=VOICES.filter(v=>rankVoice(v)>=0).sort((a,b)=>rankVoice(b)-rankVoice(a));
+  const sel=$('#voiceSel');const saved=load('voice',null);
+  if(!en.length){sel.innerHTML='<option>Không có giọng tiếng Anh</option>';return;}
+  sel.innerHTML=en.map((v,i)=>`<option value="${i}">${esc(v.name)} (${v.lang})</option>`).join('');
+  let idx=0;if(saved){const k=en.findIndex(v=>v.name===saved);if(k>=0)idx=k;}
+  sel.value=idx;EN_VOICE=en[idx];
+  sel.onchange=()=>{EN_VOICE=en[+sel.value];store('voice',EN_VOICE.name);speak('Hello! Let us practise the sounds together.');};
+}
+if(synth){loadVoices();synth.onvoiceschanged=loadVoices;}
+function rate(){return +$('#rate').value;}
+$('#rate').value=load('rate',0.9);$('#rateV').textContent=$('#rate').value;
+$('#rate').oninput=e=>{$('#rateV').textContent=e.target.value;store('rate',+e.target.value);};
+function speak(text,{slow=false,onend}={}){
+  if(!synth){toast('Trình duyệt này không đọc được âm thanh. Hãy dùng Chrome hoặc Safari.');return;}
+  synth.cancel();
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang=EN_VOICE?EN_VOICE.lang:'en-US';if(EN_VOICE)u.voice=EN_VOICE;
+  u.rate=slow?Math.max(0.5,rate()*0.65):rate();u.pitch=1;
+  if(onend)u.onend=onend;
+  setTimeout(()=>synth.speak(u),40);
+}
+function speakSeq(list,{onDone}={}){
+  if(!synth)return;synth.cancel();let i=0;const token=Symbol();speakSeq.cur=token;
+  const next=()=>{if(speakSeq.cur!==token)return;if(i>=list.length){onDone&&onDone();return;}
+    const u=new SpeechSynthesisUtterance(list[i++]);u.lang=EN_VOICE?EN_VOICE.lang:'en-US';if(EN_VOICE)u.voice=EN_VOICE;u.rate=rate();
+    u.onend=()=>setTimeout(next,220);u.onerror=()=>{onDone&&onDone();};synth.speak(u);};
+  setTimeout(next,40);
+}
+function stopSpeak(){speakSeq.cur=null;synth&&synth.cancel();}
+document.addEventListener('click',e=>{
+  const s=e.target.closest('[data-say]');if(s){speak(s.dataset.say,{slow:true});return;}
+  const p=e.target.closest('[data-hear]');if(p){speak(p.dataset.hear);}
+});
+
+/* ================= GHI ÂM & CHẤM % ================= */
+const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+const RESULTS=load('results',{});
+const BLOBS={};
+let STREAM=null,ACTIVE=null;
+async function getStream(){if(STREAM&&STREAM.active)return STREAM;STREAM=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true}});return STREAM;}
+function pickMime(){if(!window.MediaRecorder)return'';for(const m of['audio/webm;codecs=opus','audio/mp4','audio/webm','audio/ogg'])if(MediaRecorder.isTypeSupported&&MediaRecorder.isTypeSupported(m))return m;return'';}
+async function startRec(ctx){
+  if(ACTIVE){const same=ACTIVE.ctx===ctx;stopRec();if(same)return;}
+  stopSpeak();
+  if(!navigator.mediaDevices||!window.MediaRecorder){ctx.ui.msg('Trình duyệt này chưa ghi âm được. Hãy mở bài bằng Chrome (máy tính/Android) hoặc Safari (iPhone).');return;}
+  let s;try{s=await getStream();}catch(e){ctx.ui.msg('Chưa mở được micro. Bấm vào biểu tượng 🔒 trên thanh địa chỉ → cho phép Micro, rồi thử lại.');return;}
+  const mime=pickMime();let mr;try{const o={audioBitsPerSecond:48000};if(mime)o.mimeType=mime;mr=new MediaRecorder(s,o);}catch(e){mr=new MediaRecorder(s);}
+  const st={ctx,mr,chunks:[],finals:[],interim:'',t0:Date.now(),stopping:false,mrDone:false,recDone:!SR};
+  mr.ondataavailable=e=>{if(e.data&&e.data.size)st.chunks.push(e.data);};
+  mr.onstop=()=>{st.blob=new Blob(st.chunks,{type:mr.mimeType||'audio/webm'});st.mrDone=true;finish(st);};
+  if(SR){
+    const r=new SR();r.lang='en-US';r.continuous=true;r.interimResults=true;r.maxAlternatives=1;
+    r.onresult=e=>{let inter='';for(let i=e.resultIndex;i<e.results.length;i++){const res=e.results[i];if(res.isFinal)st.finals.push(res[0].transcript);else inter+=res[0].transcript;}st.interim=inter;ctx.ui.live((st.finals.join(' ')+' '+inter).trim());};
+    r.onerror=e=>{if(['not-allowed','service-not-allowed','network','audio-capture','language-not-supported'].includes(e.error))st.srFail=true;};
+    r.onend=()=>{if(!st.stopping&&!st.srFail){try{r.start();}catch(_){}}else{st.recDone=true;finish(st);}};
+    st.r=r;try{r.start();}catch(_){st.srFail=true;st.recDone=true;}
+  }
+  mr.start();ACTIVE=st;ctx.ui.setRec(true);
+  st.tick=setInterval(()=>{const sec=(Date.now()-st.t0)/1000;ctx.ui.tick(sec);if(sec>=ctx.maxSec)stopRec();},250);
+}
+function stopRec(){
+  const st=ACTIVE;if(!st)return;ACTIVE=null;st.stopping=true;clearInterval(st.tick);st.dur=(Date.now()-st.t0)/1000;
+  st.ctx.ui.setRec(false);st.ctx.ui.live('Đang chấm…');
+  try{st.mr.stop();}catch(_){}
+  if(st.r&&!st.recDone){try{st.r.stop();}catch(_){}setTimeout(()=>{st.recDone=true;finish(st);},2500);}
+}
+function finish(st){
+  if(st.done||!st.mrDone||!st.recDone)return;st.done=true;
+  const c=st.ctx;const transcript=(st.finals.join(' ')+' '+(st.interim||'')).trim();
+  BLOBS[c.key]=st.blob;
+  const useSR=SR&&!st.srFail;
+  const r={label:c.label,target:c.target,transcript,dur:Math.round(st.dur*10)/10,score:null,t:Date.now()};
+  if(useSR)r.score=compare(c.target,transcript).score;
+  RESULTS[c.key]=r;store('results',RESULTS);
+  c.ui.done(r,useSR);
+}
+
+
+/* ================= BỘ KIỂM TRA CÂU TRẢ LỜI (chạy trong trình duyệt, theo quy tắc) ================= */
+const VI_RE=/[àáảãạăằắẳẵặâầấẩẫậèéẻẽẹêềếểễệìíỉĩịòóỏõọôồốổỗộơờớởỡợùúủũụưừứửữựỳýỷỹỵđ]/i;
+function hasVi(t){return VI_RE.test(t);}
+const LET=new Set(['let','lets','make','makes','made','help','helps','see','watch','hear','saw','heard','have','had','does','do','did','will','would','can','could','should','shall','must','may','might',"don't","doesn't","didn't",'not','to']);
+function prevWord(T,i){const m=T.slice(0,i).match(/([A-Za-z']+)\s*$/);return m?m[1].toLowerCase():'';}
+function third(v){v=v.toLowerCase();if(v==='have')return'has';if(v==='do')return'does';if(v==='go')return'goes';if(/(ch|sh|s|x|z)$/.test(v))return v+'es';if(/[^aeiou]y$/.test(v))return v.slice(0,-1)+'ies';return v+'s';}
+function ing(v){v=v.toLowerCase();if(v==='chat')return'chatting';if(v==='surf')return'surfing';if(v==='study')return'studying';if(/e$/.test(v)&&!/ee$/.test(v))return v.slice(0,-1)+'ing';return v+'ing';}
+const COMP={happy:'happier',sad:'sadder',easy:'easier',funny:'funnier',busy:'busier',lonely:'lonelier',angry:'angrier',healthy:'healthier',good:'better',bad:'worse'};
+const BASEV={makes:'make',goes:'go',helps:'help',brings:'bring',uses:'use',plays:'play',shares:'share',spends:'spend',feels:'feel',gives:'give',causes:'cause',sharing:'share',using:'use',playing:'play',spending:'spend',going:'go',watching:'watch',posting:'post',limiting:'limit',talking:'talk',spent:'spend',used:'use',shared:'share',made:'make'};
+const IRR={gived:'gave',buyed:'bought',goed:'went',taked:'took',maked:'made',haved:'had',spended:'spent',speaked:'spoke',writed:'wrote',eated:'ate',runned:'ran',teached:'taught',thinked:'thought',feeled:'felt',bringed:'brought',getted:'got',gotted:'got',losed:'lost',keeped:'kept',leaved:'left'};
+const SPELL={becouse:'because',becuse:'because',beacuse:'because',becasue:'because',freind:'friend',freinds:'friends',hapy:'happy',hapiness:'happiness',stresful:'stressful',stresed:'stressed',adictive:'addictive',addicive:'addictive',privecy:'privacy',infomation:'information',informaton:'information',comunicate:'communicate',smartphon:'smartphone',smarphone:'smartphone',sociel:'social',socail:'social',medai:'media',bennefits:'benefits',benifits:'benefits',dangerus:'dangerous',dangerouse:'dangerous',efect:'effect',eyse:'eyes'};
+const BRAND={youtube:'YouTube',tiktok:'TikTok',facebook:'Facebook',instagram:'Instagram',zalo:'Zalo',google:'Google',messenger:'Messenger',snapchat:'Snapchat'};
+const PASTMAP={buy:'bought',give:'gave',get:'got',save:'saved',win:'won',receive:'received',borrow:'borrowed',earn:'earned'};
+function matchCase(to,from){return /^[A-Z]/.test(from)?to.charAt(0).toUpperCase()+to.slice(1):to;}
+function sentenceBefore(T,i){const s=T.slice(0,i);const k=Math.max(s.lastIndexOf('.'),s.lastIndexOf('!'),s.lastIndexOf('?'));return s.slice(k+1);}
+
+const RULES=[
+ {k:'i',re:/(^|[\s(])i(?=[\s',.!?]|$)/g,msg:'Chữ "I" (tôi) luôn viết hoa.',rep:(m,p)=>p+'I'},
+ {k:'cap',re:/([.!?])\s+([a-z])/g,msg:'Chữ cái đầu mỗi câu phải viết hoa.',rep:(m,p,c)=>p+' '+c.toUpperCase()},
+ {k:'comma',re:/,(?=[A-Za-z])/g,msg:'Sau dấu phẩy cần có một dấu cách.',rep:()=>', '},
+ {k:'3rd',re:/\b(he|she|it)\s+(go|play|use|like|spend|watch|think|feel|make|want|need|help|love|bring|cause|allow|give|keep|become|look|take|chat|post|share|show|learn|hate|enjoy|prefer|follow|study|have|do)\b/gi,
+  msg:'Chủ ngữ he/she/it (số ít): động từ ở hiện tại đơn phải thêm -s/-es.',rep:(m,s,v)=>s+' '+third(v),skip:(T,i)=>LET.has(prevWord(T,i))},
+ {k:'have',re:/\b(I|you|we|they)\s+has\b/gi,msg:'Với I/you/we/they dùng "have", không dùng "has".',rep:(m,s)=>s+' have'},
+ {k:'dont3',re:/\b(he|she|it)\s+(don't|dont|do not)\b/gi,msg:'Với he/she/it dùng "doesn\'t / does not".',rep:(m,s,d)=>s+' '+(/not/i.test(d)?'does not':"doesn't")},
+ {k:'doesnt1',re:/\b(I|you|we|they)\s+(doesn't|does not)\b/gi,msg:'Với I/you/we/they dùng "don\'t / do not".',rep:(m,s,d)=>s+' '+(/not/i.test(d)?'do not':"don't")},
+ {k:'plvb',re:/\b(teenagers|teens|friends|parents|people|students|kids|children|photos|videos|apps|phones|comments)\s+(is|has|was|does)\b/gi,
+  msg:'Danh từ số nhiều đi với are/have/were/do.',rep:(m,n,v)=>n+' '+({is:'are',has:'have',was:'were',does:'do'})[v.toLowerCase()]},
+ {k:'sgare',re:/\b(he|she|it)\s+(are|were|am)\b/gi,msg:'Với he/she/it dùng "is/was".',rep:(m,s,v)=>s+' '+(/were/i.test(v)?'was':'is')},
+ {k:'iis',re:/\bI\s+(is|are)\b/g,msg:'Với "I" dùng "am".',rep:()=>'I am'},
+ {k:'beverb',re:/\b(am|is|are)\s+(have|go|play|use|like|spend|watch|think|feel|make|want|need)\b/gi,msg:'Không dùng am/is/are trước động từ thường (e.g. "I have", không phải "I am have").',rep:(m,b,v)=>v},
+ {k:'agree',re:/\b(I\s+)?am\s+(not\s+)?agree\b/gi,msg:'"agree" là động từ: nói "I agree" / "I don\'t agree", không dùng "am".',rep:(m,i,n)=>(i||'')+(n?"don't agree":'agree')},
+ {k:'comp',re:/\bmore\s+(happy|sad|easy|funny|busy|lonely|angry|healthy|good|bad)\b/gi,msg:'Tính từ ngắn dùng so sánh hơn với -er (không dùng "more").',rep:(m,a)=>COMP[a.toLowerCase()]},
+ {k:'feeladj',re:/\b(feel|feels|felt|make|makes|made)\s+((?:me|us|them|teens|teenagers|you)\s+)?(stress|happiness|sadness|tiredness|worry)\b/gi,
+  msg:'Sau feel/make cần TÍNH TỪ (stressed, happy, sad, tired, worried), không dùng danh từ.',rep:(m,v,o,n)=>v+' '+(o||'')+({stress:'stressed',happiness:'happy',sadness:'sad',tiredness:'tired',worry:'worried'})[n.toLowerCase()]},
+ {k:'nounpl',re:/\b(play|plays|playing|watch|watches|watching|share|shares|sharing|post|posts|posting|send|sends|take|takes)\s+(game|photo|video|message|picture|comment)\b/gi,
+  msg:'Danh từ đếm được không có "a/the" cần thêm -s ở dạng số nhiều.',rep:(m,v,n)=>v+' '+n+'s'},
+ {k:'hourpl',re:/\b(2|3|4|5|6|7|8|9|10|two|three|four|five|six|seven|eight|nine|ten|many|several|few|some|more)\s+hour\b/gi,msg:'Từ hai giờ trở lên dùng "hours" (số nhiều).',rep:(m,n)=>n+' hours'},
+ {k:'hoursg',re:/\b(a|an|one|1)\s+hours\b/gi,msg:'"một giờ" là "an hour / one hour" (số ít).',rep:(m,a)=>(a.toLowerCase()==='a'?'an':a)+' hour'},
+ {k:'hoursto',re:/\bhours?\s+(a day\s+|per day\s+|every day\s+)?to\s+(use|play|watch|chat|surf|scroll|study|learn|talk|read|listen)\b/gi,
+  msg:'Sau "spend + thời gian" dùng V-ing (spend two hours USING…), không dùng "to + V".',rep:(m,ad,v)=>'hours '+(ad||'')+ing(v),skip:(T,i)=>!/\bspend/i.test(sentenceBefore(T,i))},
+ {k:'modalto',re:/\b(should|can|must|could|will|would|might|may)\s+to\b/gi,msg:'Sau động từ khuyết thiếu (should, can, must…) KHÔNG có "to".',rep:(m,md)=>md},
+ {k:'modalform',re:/\b(should|shouldn't|can|can't|cannot|must|could|will|would|might|may)\s+(not\s+)?(makes|goes|helps|brings|uses|plays|shares|spends|feels|gives|causes|sharing|using|playing|spending|going|watching|posting|limiting|talking|spent|used|shared|made)\b/gi,
+  msg:'Sau động từ khuyết thiếu dùng động từ nguyên mẫu (should limit, can use…).',rep:(m,md,n,v)=>md+(n?' not ':' ')+BASEV[v.toLowerCase()]},
+ {k:'irr',re:new RegExp('\\b('+Object.keys(IRR).join('|')+')\\b','gi'),msg:'Động từ bất quy tắc: không thêm -ed.',rep:(m,w)=>matchCase(IRR[w.toLowerCase()],w)},
+ {k:'uncount1',re:/\b(informations|advices|knowledges|homeworks|furnitures)\b/gi,msg:'Danh từ không đếm được, không thêm -s.',rep:(m,w)=>w.slice(0,-1)},
+ {k:'uncount2',re:/\b(a|an|many)\s+information\b/gi,msg:'"information" không đếm được: dùng "some / a lot of / much information".',rep:(m,q)=>(/many/i.test(q)?'a lot of':'some')+' information'},
+ {k:'brand',re:new RegExp('\\b('+Object.keys(BRAND).join('|')+')\\b','g'),msg:'Tên riêng của ứng dụng phải viết hoa.',rep:(m,w)=>BRAND[w]},
+ {k:'addicted',re:/\baddicted\s+(with|of|in|on)\b/gi,msg:'Đúng là "addicted TO".',rep:()=>'addicted to'},
+ {k:'goodto',re:/\b(good|bad|harmful|useful)\s+to\s+((?:the|my|your|their)\s+)?(eyes|health|sleep|teens|teenagers|students|people)\b/gi,msg:'Đúng là "good/bad/harmful FOR …".',rep:(m,a,d,n)=>a+' for '+(d||'')+n},
+ {k:'interested',re:/\binterested\s+(about|on)\b/gi,msg:'Đúng là "interested IN".',rep:()=>'interested in'},
+ {k:'different',re:/\bdifferent\s+with\b/gi,msg:'Đúng là "different FROM".',rep:()=>'different from'},
+ {k:'discuss',re:/\bdiscuss\s+about\b/gi,msg:'"discuss" không đi với "about".',rep:()=>'discuss'},
+ {k:'focus',re:/\bfocus\s+(in|at)\b/gi,msg:'Đúng là "focus ON".',rep:()=>'focus on'},
+ {k:'depend',re:/\bdepend\s+(of|from)\b/gi,msg:'Đúng là "depend ON".',rep:()=>'depend on'},
+ {k:'insm',re:/\bin\s+(the\s+)?social\s+media\b/gi,msg:'Đúng là "ON social media".',rep:()=>'on social media'},
+ {k:'inapp',re:/\bin\s+(Facebook|YouTube|TikTok|Instagram|Zalo)\b/gi,msg:'Với ứng dụng/trang mạng dùng giới từ "on" (on YouTube).',rep:(m,x)=>'on '+x},
+ {k:'becauseso',re:/\bbecause\b[^.!?]*,\s*so\s+(I|we|you|he|she|it|they|my|the|teens|teenagers)\b/gi,
+  msg:'Không dùng cả "because" và "so" trong một câu (khác tiếng Việt "vì… nên…"). Bỏ "so".',rep:m=>m.replace(/,\s*so\s+/i,', '),show:'because …, so … → because …'},
+ {k:'although',re:/\b(although|though)\b[^.!?]*,\s*but\b/gi,msg:'Không dùng cả "although" và "but" trong một câu. Bỏ "but".',rep:m=>m.replace(/,\s*but\b/i,','),show:'although …, but … → although …, …'},
+ {k:'reasonbecause',re:/\bthe\s+reason\s+is\s+because\b/gi,msg:'Đúng là "The reason is THAT …".',rep:()=>'the reason is that'},
+ {k:'becauseof',re:/\bbecause\s+of\s+(I|we|you|he|she|it|they|my|teens|teenagers)\b/gi,msg:'"because of" + danh từ; "because" + mệnh đề (chủ ngữ + động từ).',rep:(m,s)=>'because '+s},
+ {k:'verymore',re:/\bvery\s+(more|happier|better|worse)\b/gi,msg:'Trước so sánh hơn dùng "much", không dùng "very".',rep:(m,a)=>'much '+a},
+ {k:'repeat',re:/\b(\w+)\s+\1\b/gi,msg:'Em viết lặp một từ hai lần.',rep:(m,w)=>w,skip:(T,i,m)=>/^(had|that)$/i.test(m[1])},
+ {k:'an1',re:/\ba\s+(hour|email|app|idea|opinion|example|interest|issue|educational|important|addictive|old|easy)\b/gi,msg:'Trước nguyên âm dùng "an".',rep:(m,w)=>'an '+w},
+ {k:'an2',re:/\ban\s+(smartphone|phone|teenager|friend|social|big|good|new|video|photo|story|hobby|skill|group|one|useful|website|computer|tablet|laptop)\b/gi,msg:'Trước phụ âm dùng "a".',rep:(m,w)=>'a '+w},
+ {k:'spell',re:new RegExp('\\b('+Object.keys(SPELL).join('|')+')\\b','gi'),msg:'Sai chính tả.',rep:(m,w)=>matchCase(SPELL[w.toLowerCase()],w)}
+];
+function mkRe(r){return new RegExp(r.re.source,r.re.flags.includes('g')?r.re.flags:r.re.flags+'g');}
+function ruleHits(T){
+  const hits=[];
+  RULES.forEach(r=>{
+    const re=mkRe(r);let m;
+    while((m=re.exec(T))){
+      if(m[0]===''){re.lastIndex++;continue;}
+      if(r.skip&&r.skip(T,m.index,m))continue;
+      const to=r.rep(...m);
+      if(to!==m[0])hits.push({r,from:m[0].trim(),to:String(to).trim(),idx:m.index});
+    }
+  });
+  return hits;
+}
+function applyRule(s,r){
+  const re=mkRe(r);let out='',last=0,m;
+  while((m=re.exec(s))){
+    if(m[0]===''){re.lastIndex++;continue;}
+    if(r.skip&&r.skip(s,m.index,m))continue;
+    out+=s.slice(last,m.index)+r.rep(...m);last=m.index+m[0].length;
+  }
+  return out+s.slice(last);
+}
+function applyAll(T,short){
+  let s=T;RULES.forEach(r=>{s=applyRule(s,r);});
+  if(!short){s=s.replace(/^[a-z]/,c=>c.toUpperCase());if(!/[.!?]["')]*$/.test(s))s+='.';}
+  return s;
+}
+function fmt(s){return s.length>48?'…'+s.slice(-44):s;}
+function grammarItems(T,short,add){
+  const seen=new Set();let n=0;
+  ruleHits(T).forEach(h=>{const key=h.r.k+'|'+h.from.toLowerCase();if(seen.has(key))return;seen.add(key);n++;
+    add('err',h.r.msg,h.r.show||('"'+fmt(h.from)+'" → "'+fmt(h.to)+'"'));});
+  if(!short){
+    if(/^[a-z]/.test(T)){n++;add('err','Câu nên bắt đầu bằng chữ hoa.','"'+T.slice(0,12)+'…" → "'+T.charAt(0).toUpperCase()+T.slice(1,12)+'…"');}
+    if(!/[.!?]["')]*$/.test(T)){n++;add('err','Cuối câu thiếu dấu chấm (.).');}
+  }
+  return n;
+}
+
+/* ---------- tiện ích logic ---------- */
+function findNeg(low,re){
+  const g=new RegExp(re.source,'gi');let m,p=0,n=0;
+  while((m=g.exec(low))){
+    const pre=low.slice(Math.max(0,m.index-22),m.index);
+    if(/(\bnot\b|\bnever\b|n't\b|\bno\b|\bwithout\b)[^.,;!?]*$/.test(pre))n++;else p++;
+    if(m[0]==='')g.lastIndex++;
+  }
+  return {p,n};
+}
+function hours(low){
+  const W={one:1,two:2,three:3,four:4,five:5,six:6,seven:7,eight:8,nine:9,ten:10,eleven:11,twelve:12,half:0.5};
+  const out=[];let m;const g=/\b(\d+(?:[.,]\d+)?|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|half)\s*(?:an\s+)?(hours?|hrs?|minutes?|mins?)\b/gi;
+  while((m=g.exec(low))){let v=/^\d/.test(m[1])?parseFloat(m[1].replace(',','.')):W[m[1].toLowerCase()];if(/^min/i.test(m[2]))v=v/60;out.push(v);}
+  return out;
+}
+
+/* ---------- kiểm tra riêng từng câu ---------- */
+const CHK={
+ warm1(T,add){
+  const low=T.toLowerCase();
+  const neg=/\b(no|nope)\b|\b(don't|do not|doesn't|haven't|have not|never)\s+(have|had|own|owned)\b|\bi\s+(don't|do not)\b|\bwithout\b/.test(low);
+  const posRaw=/\byes\b|\bi\s+(do\s+)?have\b|\bi\s+(have\s+)?got\b|\bmy own\b|\bi\s+own\b|\bi had\b/.test(low);
+  const owns=neg?/\byes\b/.test(low):posRaw;
+  const how=/\b(bought|buy|gave|give|gift|present|birthday|saved|save|earn|earned|won|win|borrow|borrowed|received|passed|exam|marks|grades|reward|parents|mum|mom|mother|dad|father|uncle|aunt|brother|sister|grandparents|grandma|grandpa|my own money|new year|tet|christmas)\b/.test(low);
+  const strongHow=/\b(bought|gave|saved|birthday|present|gift|received|earned)\b/.test(low);
+  if(!neg&&!owns)add('content','Chưa trả lời rõ Yes/No cho câu "Do you have your own smartphone?". Hãy mở đầu bằng "Yes, I do." hoặc "No, I don\'t.".');
+  if(owns){
+    if(!how)add('content','Em nói có điện thoại nhưng chưa trả lời "How did you have it?": ai mua/tặng cho em, vào dịp nào, hay em tự tiết kiệm tiền mua?');
+    else add('ok','Em đã trả lời cả hai phần: có điện thoại và cách em có nó.');
+  }
+  if(neg&&strongHow&&!/\b(but|used to|before|broke|lost|sold|old one|last|my friend|my brother|my sister)\b/.test(low))
+    add('logic','Em nói là KHÔNG có điện thoại riêng nhưng sau đó lại kể có người mua/tặng cho em. Hai ý này mâu thuẫn. Nếu chưa có, hãy nói em dùng điện thoại của ai (e.g. "I use my mother\'s phone.").');
+  if(neg&&!strongHow)add('ok','Em đã trả lời rõ là chưa có điện thoại riêng.');
+  if(/\b(when i was|years? ago|last (year|month|week)|on my [\w ]*birthday|in grade \d+|at the age of|when i was \d+)\b/.test(low)){
+    const g=/\b(buy|give|get|save|win|receive|borrow|earn)\b/gi;let m;const seen=new Set();
+    while((m=g.exec(low))){
+      const p=prevWord(low,m.index);
+      if(['to','did',"didn't",'can','could','will','would','should','not',"don't","doesn't",'may','might','must'].includes(p))continue;
+      const v=m[1].toLowerCase();if(seen.has(v))continue;seen.add(v);
+      add('logic','Em đang kể chuyện đã xảy ra trong quá khứ (câu hỏi "How DID you have it?") nên động từ phải ở quá khứ.','"'+v+'" → "'+PASTMAP[v]+'"');
+    }
+  }
+ },
+ warm2(T,add){
+  const low=T.toLowerCase();
+  const hs=hours(low);
+  const hasTime=hs.length>0||/\b(a few|several|many|all|most of the)\s+hours\b/.test(low);
+  if(!hasTime)add('content','Chưa nói rõ số giờ. Hãy nói bao nhiêu tiếng mỗi ngày (e.g. "about two hours a day").');
+  else if(!/\b(a day|per day|every day|each day|daily|day)\b/.test(low))add('tip','Thêm "a day / every day" để rõ là mỗi ngày.');
+  const acts=low.match(/\b(watch\w*|play\w*|chat\w*|text\w*|listen\w*|study\w*|read\w*|learn\w*|scroll\w*|surf\w*|check\w*|post\w*|call\w*|search\w*|videos?|games?|music|homework|facebook|youtube|tiktok|zalo|instagram|messages?|photos?|movies?|news|online|draw\w*|cook\w*)\b/g);
+  if(!acts||acts.length===0)add('content','Chưa nói em làm gì trên điện thoại (What do you usually do on it?). Ví dụ: watch videos, chat with friends, play games, do homework.');
+  if(hasTime&&acts&&acts.length)add('ok','Em đã trả lời đủ hai ý: số giờ và những việc em làm.');
+  if(hs.some(v=>v>16))add('logic','Một ngày chỉ có 24 giờ và em còn phải ngủ, học, ăn. Con số này khó xảy ra, em kiểm tra lại số giờ nhé.');
+  if(/\b(never use|don't use|do not use|don't have a phone|do not have a phone)\b/.test(low)&&(hs.length||(acts&&acts.length>1)))
+    add('logic','Em nói là không dùng điện thoại nhưng lại kể số giờ/việc em làm trên đó. Hai ý này mâu thuẫn.');
+ },
+ warm3(T,add){
+  const low=T.toLowerCase();
+  const hap=findNeg(low,/\bhapp(?:ier|y|iness)\b/),str=findNeg(low,/\bstress(?:ed|ful)?\b/);
+  const stanceH=hap.p>0,stanceS=str.p>0;
+  const contrast=/\b(but|however|although|though|while|sometimes|both|depends?|neither|at the same time|a bit of both|mixed)\b/.test(low);
+  if(!stanceH&&!stanceS&&!contrast)add('content','Chưa chọn rõ: mạng xã hội khiến em "happier" hay "more stressed"? Hãy nói "I think social media makes me …".');
+  if(stanceH&&stanceS&&!contrast)add('logic','Em nhắc cả "happier" và "stressed" mà chưa nói rõ em chọn bên nào. Hãy chọn một, hoặc dùng "both / sometimes" rồi giải thích từng ý.');
+  const hasReason=/\b(because|since|for example|for instance|the reason|that is why|that's why|when i|if i)\b/.test(low);
+  if(!hasReason)add('content','Chưa có lý do cho câu "Why?". Hãy thêm "because …" (e.g. because I can chat with my friends).');
+  const con=findNeg(low,/\b(cyberbull\w*|mean comments?|addict\w*|fomo|left out|eyes?|tired|sad|lonely|pressure|bad|hurt|sleep|waste|anxious|worr\w+|compare|jealous|headache)\b/).p;
+  const pro=findNeg(low,/\b(connect\w*|friends?|family|fun|funny|learn\w*|share|enjoy\w*|laugh\w*|chat\w*|relax\w*|entertain\w*|interesting|talk\w*|video|music|useful|skills?|express\w*|hobb\w+)\b/).p;
+  if(stanceH&&!stanceS&&!contrast&&con>=2&&pro===0)add('logic','Em chọn "happier" nhưng lý do em nêu nghe như mặt tiêu cực (căng thẳng, mệt, bị bắt nạt…). Có phải em muốn nói "more stressed"? Kiểm tra lại, hoặc thêm "although / but" để giải thích.');
+  if(stanceS&&!stanceH&&!contrast&&pro>=2&&con===0)add('logic','Em chọn "more stressed" nhưng lý do em nêu nghe như mặt tích cực (bạn bè, vui, học hỏi…). Có phải em muốn nói "happier"? Kiểm tra lại, hoặc thêm "although / but".');
+  if((stanceH||stanceS||contrast)&&hasReason&&!add.items().some(i=>i.k==='logic'||i.k==='content'))add('ok','Em đã nêu ý kiến và có lý do đi kèm.');
+ },
+ r1q1(T,add){
+  const low=T.toLowerCase();
+  const okc=/social\s*media|mạng xã hội|mang xa hoi/.test(low);
+  if(okc){add('ok','Đúng! "It" thay cho "social media" ở câu trước ("Social media is a big part of life…").');if(hasVi(T))add('tip','Hãy viết đáp án bằng tiếng Anh: "It refers to social media."');}
+  else if(/teen\w*|life|benefits?|part|today/.test(low))add('content','Chưa đúng. "It" phải là chủ ngữ số ít của câu trước đó. Đọc lại câu đầu của đoạn: ai/cái gì "is a big part of life for teenagers today"?');
+  else add('content','Chưa đúng. Hãy nhìn câu đứng ngay trước "It brings many benefits": chủ ngữ của câu đó là gì?');
+ },
+ r1q2(T,add){
+  const low=T.toLowerCase();
+  const b1=/connect\w*|friends?|family|far away|keep in touch|stay in touch|contact|kết nối|bạn bè|gia đình|liên lạc/.test(low);
+  const b2=/learn\w*|educational|skills?|cook\w*|draw\w*|english|study|knowledge|học|kỹ năng/.test(low);
+  const b3=/express\w*|hobb\w+|interests?|thể hiện|sở thích/.test(low);
+  const n=(b1?1:0)+(b2?1:0)+(b3?1:0);
+  if(n>=2){add('ok','Em nêu được '+n+' lợi ích đúng với bài đọc.');}
+  else if(n===1)add('content','Em mới nêu 1 lợi ích. Hãy thêm một lợi ích nữa. Bài đọc có 3: (1) kết nối bạn bè và gia đình, (2) học kỹ năng mới, (3) thể hiện bản thân.');
+  else add('content','Chưa thấy lợi ích nào đúng với bài đọc. Bài có 3 lợi ích: (1) kết nối bạn bè và gia đình, (2) học kỹ năng mới, (3) thể hiện bản thân.');
+  if(n<2&&/privacy|personal information|safe/.test(low))add('logic','"Privacy / personal information" là LỜI NHẮC ở cuối bài, không phải lợi ích của social media.');
+ },
+ r1q3(T,add){
+  const low=T.toLowerCase();
+  const dontThink=/\b(don't|do not)\s+think\b[^.]*\bshould\b/.test(low);
+  const negShare=/\b(should not|shouldn't|must not|mustn't|never|don't|do not|not)\s+(\w+\s+){0,3}(share|post|give|tell|put|show)\b|\bno\b/.test(low)||dontThink;
+  const yesShare=/\bshould\s+(\w+\s+){0,2}(share|post)\b|\b(it is|it's)\s+(ok|okay|fine|safe)\s+to\s+share\b|\byes\b|\bi\s+(can|will|do)\s+share\b/.test(low)&&!/\b(should not|shouldn't|not)\s+(\w+\s+){0,3}share\b/.test(low)&&!dontThink;
+  const limited=/\b(only|some|not too much|not too many|careful|carefully|limit|close friends|trust|privacy settings?|family)\b/.test(low);
+  if(!negShare&&!yesShare&&!limited)add('content','Chưa nêu rõ ý kiến: có nên chia sẻ hay không? Hãy bắt đầu bằng "I think I should / shouldn\'t share … because …".');
+  const hasReason=/\b(because|since|for example|for instance|the reason|that is why|that's why|so that)\b/.test(low);
+  if(!hasReason)add('content','Chưa có lý do. Hãy giải thích "Why / Why not?" bằng "because …".');
+  const con=/\b(danger\w*|unsafe|not safe|bad people|strangers?|steal|stole|hack\w*|scam\w*|cheat\w*|trick\w*|kidnap\w*|crime|criminals?|bully\w*|risk\w*|identity|fake|track\w*|address|password|bank)\b/.test(low);
+  const pro=/\b(fun|express\w*|connect\w*|friends|share my|enjoy\w*|interesting|show my)\b/.test(low);
+  if(negShare&&!limited&&!con&&pro)add('logic','Em nói KHÔNG nên chia sẻ nhưng lý do em nêu lại là điều tích cực (vui, kết nối…). Lý do và ý kiến chưa khớp nhau. Hãy nêu nguy cơ (e.g. strangers can use your information).');
+  if(yesShare&&!limited&&con&&!/\b(but|however|although|though|only)\b/.test(low))add('logic','Em nói NÊN chia sẻ nhưng lý do em nêu lại là điều nguy hiểm. Hai ý này mâu thuẫn. Có phải em muốn nói "shouldn\'t"? Hoặc nói rõ: "only share … with close friends".');
+  if((negShare||yesShare||limited)&&hasReason&&!add.items().some(i=>i.k==='logic'||i.k==='content'))add('ok','Em đã nêu ý kiến và có lý do.');
+  if(!/privacy|personal information|strangers?|safe|danger\w*/.test(low))add('tip','Gợi ý: bài đọc nhắc phải "keep your privacy safe by not sharing too much personal information".');
+ },
+ r2q1(T,add){
+  const low=T.toLowerCase();
+  const eye=/\b(hurt|hurts|pain\w*|sore|tired|dry|bad|damage\w*|harm\w*|ache|aches|problem\w*|strain\w*|blur\w*|weak|worse|headache)\b|mỏi|đau|hại|khô/.test(low);
+  if(/sleep/.test(low)&&!/eyes?|mắt/.test(low))add('content','Câu hỏi hỏi về MẮT. "Sleep" là ảnh hưởng khác trong câu. Mắt bị làm sao? (It can … their eyes.)');
+  else if(/good for (the |their |my )?eyes?/.test(low))add('logic','Em viết dùng lâu "tốt cho mắt" — ngược với bài đọc. Bài nói screen time quá nhiều "can hurt their eyes".');
+  else if(eye)add('ok','Đúng! Theo bài đọc, dùng điện thoại quá nhiều có thể làm hại/đau mắt.');
+  else add('content','Chưa trả lời đúng ý. Đọc lại câu "Many teens spend too much screen time… which can … their eyes and sleep".');
+ },
+ r2q2(T,add){
+  const low=T.toLowerCase();
+  const bully=/cyber\s?-?\s?bull(y|ies|ier)\b|\bbully\b|\bbullies\b|\btroll\b|\bhater\b|bắt nạt/.test(low);
+  const act=/cyberbullying/.test(low)&&!/cyber\s?-?\s?bull(y|ies)\b(?!ing)/.test(low.replace(/cyberbullying/g,''));
+  if(act)add('content','Gần đúng. "Cyberbullying" là HÀNH VI bắt nạt trên mạng. Người thực hiện hành vi đó gọi là "a cyberbully".');
+  else if(bully)add('ok','Đúng! Người bắt nạt người khác trên mạng gọi là "cyberbully".');
+  else add('content','Chưa đúng. Bài đọc dùng từ "cyberbullying" cho hành vi này. Người thực hiện gọi là gì? (a cyber…)');
+ },
+ r2q3(T,add){
+  const low=T.toLowerCase();
+  const acts=low.match(/\b(limit\w*|set a time|time limit|less time|turn off|put (away|down) (my |your |their )?phones?|go outside|outdoor\w*|play sports?|sports?|exercise\w*|read (a )?books?|hobbies|talk to|meet|spend (more )?time with|family|face to face|go to bed|screen[- ]free|no phones?|delete apps?|notifications?|homework|walk|go out|real life)\b/g);
+  const n=acts?new Set(acts.map(x=>x.toLowerCase())).size:0;
+  if(n===0)add('content','Chưa nêu việc cụ thể nên làm. Ví dụ: limit screen time, set a time for using phones, play sports, spend more time with family and friends.');
+  else add('ok','Em đã nêu được cách làm cụ thể để cân bằng giữa online và cuộc sống thật.');
+  if(/\b(more time (on|using)|use (my |their )?phones? more|spend more time (on|using) (my |their )?(phones?|social)|all day (on|using))\b/.test(low))
+    add('logic','Dùng điện thoại NHIỀU hơn thì không giúp cân bằng; bài đọc khuyên "find a healthy balance". Hãy nêu việc làm GIẢM thời gian online hoặc TĂNG hoạt động ngoài đời thật.');
+  if(n===1)add('tip','Em thử thêm một cách nữa và nối ý bằng "also / and / because".');
+  if(!/\bshould\b|\bcan\b|\bneed to\b|\bhave to\b|\bmust\b/.test(low))add('tip','Khi nêu lời khuyên, dùng "should + động từ" (teenagers should limit their screen time).');
+ }
+};
+
+function analyze(q,text){
+  const T=text.trim().replace(/\s+/g,' ');
+  const items=[];const add=(k,msg,ex)=>items.push({k,msg,ex});add.items=()=>items;
+  if(!T){add('content','Em chưa viết gì. Hãy gõ câu trả lời rồi bấm Kiểm tra.');return{items,fixed:'',err:1};}
+  const vi=hasVi(T);
+  if(vi){if(q.allowVi)add('tip','Em trả lời bằng tiếng Việt. Hãy thử viết bằng tiếng Anh nhé.');else add('content','Em đang trả lời bằng tiếng Việt. Hãy viết bằng tiếng Anh (bấm 💡 Gợi ý câu để xem mẫu câu).');}
+  else grammarItems(T,q.short,add);
+  const words=T.split(' ').filter(Boolean).length;
+  if(!vi&&words<(q.minWords||1))add('content','Câu trả lời còn ngắn ('+words+' từ). Hãy viết đủ câu, ít nhất khoảng '+q.minWords+' từ.');
+  CHK[q.chk](T,add,q);
+  const err=items.filter(i=>i.k==='err'||i.k==='logic'||i.k==='content').length;
+  if(err===0&&!items.some(i=>i.k==='ok'))add('ok','Không phát hiện lỗi nào.');
+  const fixed=vi?'':applyAll(T,q.short);
+  return {items,fixed:fixed!==T?fixed:'',err};
+}
+
+
+/* ================= GỢI Ý ÂM CHƯA TỐT ================= */
+function tipsFor(word){
+  const w=word.toLowerCase().replace(/[^a-z'-]/g,'');const e=DICT[w];const ipa=e?e[1]:'';const t=[];
+  const add=(k,txt)=>{if(!t.some(x=>x.k===k))t.push({k,txt});};
+  if(/th/.test(w))add('/θ/ /ð/ (th)','Âm "th" (/θ/ hoặc /ð/): đặt đầu lưỡi giữa hai hàm răng rồi thổi hơi; đừng đọc thành /t/, /d/ hay /s/.');
+  if(/sh|ti(on|al)|ssi/.test(w)||/ʃ/.test(ipa))add('/ʃ/ (sh)','Âm /ʃ/ (sh): chu môi, lưỡi lùi lại, thổi hơi như tiếng "suỵt".');
+  if(/ch/.test(w)||/tʃ/.test(ipa))add('/tʃ/ (ch)','Âm /tʃ/ (ch): bật hơi mạnh, như "ch" trong "chair".');
+  if(/v/.test(w))add('/v/','Âm /v/: răng trên chạm nhẹ môi dưới và có rung; đừng đọc thành /b/ hay /w/.');
+  if(/ng$|ing$/.test(w)||/ŋ/.test(ipa))add('/ŋ/ (-ng)','Đuôi -ng /ŋ/: cuống lưỡi chạm vòm mềm, không đọc rõ chữ "g" ở cuối.');
+  if(/(es|s)$/.test(w)&&!/(ss|us|is)$/.test(w)&&w.length>3)add('đuôi -s/-es','Đuôi -s/-es: đọc /s/ sau p, t, k, f; /ɪz/ sau s, sh, ch, x; còn lại /z/. Đừng bỏ âm cuối.');
+  if(/ed$/.test(w)&&w.length>3)add('đuôi -ed','Đuôi -ed: đọc /t/, /d/ hoặc /ɪd/ (sau t, d). Đừng bỏ âm cuối.');
+  if(/^r/.test(w))add('/r/','Âm /r/: cong đầu lưỡi lên nhưng không chạm vòm miệng, không rung lưỡi.');
+  if(/^(st|sp|sk|str|spr|scr|pr|tr|br|cr|dr|fr|gr|bl|cl|fl|gl|pl|sl)/.test(w)&&w.length>3)add('cụm phụ âm đầu','Cụm phụ âm đầu từ: đọc liền, không chèn thêm nguyên âm (e.g. "screen" không đọc là "sờ-crin").');
+  if(/[ptkdbg]$/.test(w)&&!/ed$/.test(w))add('âm cuối','Đọc rõ phụ âm cuối (đặt đúng vị trí môi/lưỡi), không nuốt âm.');
+  if(ipa.includes('ˈ')&&(ipa.indexOf('ˈ')>1||(ipa.match(/[aeiouəɪʊɒʌæɜɔɑ]+/g)||[]).length>=3))add('trọng âm','Trọng âm rơi vào âm tiết ngay sau dấu ˈ trong '+ipa+': đọc mạnh và dài hơn các âm tiết còn lại.');
+  if(!t.length&&ipa)add('nguyên âm','Nghe lại mẫu 🔊 và so sánh cách đọc nguyên âm trong '+ipa+'.');
+  return t;
+}
+
+/* ================= GHI ÂM + CHẤM % ================= */
+function practice({key,label,target,speakText,maxSec=30}){
+  const el=h('div',{class:'pr'});
+  el.innerHTML=`<div class="pr-btns">
+    <button class="b" data-a="model">🔊 Nghe mẫu</button>
+    <button class="b" data-a="slow">🐢 Chậm</button>
+    <button class="b rec" data-a="rec">🎙 Ghi âm</button>
+    <button class="b" data-a="play" disabled>▶ Nghe lại</button>
+    <button class="b" data-a="cmp" disabled>🔁 So sánh</button>
+    <button class="b primary" data-a="send" hidden>📤 Gửi bản ghi này cho thầy/cô</button>
+    <span class="timer"></span><span class="cl"></span></div><div class="live"></div><div class="res"></div>`;
+  const q=s=>el.querySelector(s);
+  const clEl=q('.cl'),sendB=q('[data-a=send]'),recB=q('[data-a=rec]'),playB=q('[data-a=play]'),cmpB=q('[data-a=cmp]'),timer=q('.timer'),live=q('.live'),res=q('.res');
+  let audio=null;
+  const ctx={key,label,target,maxSec,ui:{
+    setRec(on){recB.classList.toggle('on',on);recB.innerHTML=on?'■ Dừng':'🎙 Ghi âm';if(on){res.innerHTML='';live.textContent=SR?'Đang nghe em đọc…':'Đang ghi âm…';}else timer.textContent='';},
+    tick(sec){timer.textContent=Math.floor(sec)+'s / '+maxSec+'s';},
+    live(t){live.textContent=t;},
+    msg(t){live.textContent='';res.innerHTML=`<div class="tip">⚠️ ${esc(t)}</div>`;},
+    done(r,useSR){live.textContent='';showResult(r,useSR);enable();},
+    cloud(state){clEl.className='cl '+(state==='ok'?'sent-ok':state==='bad'?'sent-bad':'sent-wait');clEl.textContent=state==='ok'?'✅ Đã gửi thầy/cô':state==='bad'?'⚠️ Chưa gửi được, đang thử lại…':'☁️ Đang gửi…';if(state==='ok')sendB.hidden=true;}
+  }};
+  function enable(){const has=!!BLOBS[key];playB.disabled=!has;cmpB.disabled=!has;sendB.hidden=!has||!!(RESULTS[key]&&RESULTS[key].sent);if(has){clEl.className='cl sent-wait';clEl.textContent='Nghe lại – thấy ổn thì bấm 📤 Gửi. Chưa ổn thì ghi âm lại.';}}
+  function getAudio(){if(!BLOBS[key])return null;if(audio&&audio._blob===BLOBS[key])return audio;audio=new Audio(URL.createObjectURL(BLOBS[key]));audio._blob=BLOBS[key];return audio;}
+  function showResult(r,useSR){
+    if(useSR&&r.score!=null){
+      const c=compare(target,r.transcript);
+      const cls=c.score>=85?'hi':c.score>=60?'mid':'lo';
+      const msg=c.score>=85?'Rất tốt! Nghe lại bản của em để so sánh với bản mẫu.':c.score>=60?'Khá rồi. Luyện các âm bên dưới rồi đọc lại nhé.':'Nghe mẫu chậm 🐢 vài lần, đọc từng cụm rồi ghi âm lại nhé.';
+      let fixes='';
+      if(!r.transcript){fixes='<div class="tip">Máy chưa nghe được em đọc gì. Hãy nói to, rõ và gần micro hơn.</div>';}
+      else if(c.missed.length){
+        const agg={};
+        c.missed.forEach(w=>tipsFor(w).forEach(x=>agg[x.k]=(agg[x.k]||0)+1));
+        const top=Object.entries(agg).sort((a,b)=>b[1]-a[1]).slice(0,4);
+        fixes='<div class="tip"><b>Âm cần luyện nhiều nhất:</b> '+top.map(([k,n])=>`<span class="chipw">${esc(k)} · ${n} từ</span>`).join(' ')+'</div>';
+        fixes+='<div class="mws">'+c.missed.slice(0,10).map(w=>{
+          const e=DICT[w];const tp=tipsFor(w).slice(0,2);
+          return `<div class="mw"><button class="fix" data-say="${esc(w)}">🔊 ${esc(w)} ${e?'<span class="ipa">'+e[1]+'</span>':''}</button>${tp.map(x=>`<div class="tip">• ${x.txt}</div>`).join('')}</div>`;
+        }).join('')+'</div>';
+        fixes+='<div class="tip" style="color:var(--muted)">Máy nhận diện giọng nói có thể nghe nhầm, nên điểm chỉ để tham khảo. Thầy/cô sẽ nghe bản ghi em gửi.</div>';
+      }
+      res.innerHTML=`<span class="score ${cls}">${c.score}%</span>${msg}<div class="diff">${c.html}</div>${r.transcript?'<div class="tip">Máy nghe được: <i>'+esc(r.transcript)+'</i></div>':''}${fixes}`;
+    }else{
+      res.innerHTML=`<div class="tip">Đã ghi âm (${r.dur}s). Bấm "So sánh" để nghe mẫu rồi nghe bản của em. Máy này chưa tự chấm điểm (hãy dùng Chrome để được chấm %). Em tự chấm:</div>
+      <div class="selfrate"><button class="b" data-r="1">😕 Chưa giống</button><button class="b" data-r="2">🙂 Khá giống</button><button class="b" data-r="3">😃 Rất giống</button></div>`;
+      res.querySelectorAll('[data-r]').forEach(b=>b.onclick=()=>{RESULTS[key].self=+b.dataset.r;store('results',RESULTS);res.querySelectorAll('[data-r]').forEach(x=>x.classList.toggle('primary',x===b));});
+    }
+  }
+  const say=()=>speakText||target;
+  el.addEventListener('click',e=>{
+    const b=e.target.closest('[data-a]');if(!b)return;const a=b.dataset.a;
+    if(a==='send'){if(!BLOBS[key])return;if(!stuName()){toast('Em ghi tên trước nhé (tab Nộp bài).');return;}enqueueUpload(key,BLOBS[key],RESULTS[key],ctx.ui.cloud);}
+    if(a==='model'){const s=say();Array.isArray(s)?speakSeq(s):speak(s);}
+    if(a==='slow'){const s=say();speak(Array.isArray(s)?s.join(' '):s,{slow:true});}
+    if(a==='rec')startRec(ctx);
+    if(a==='play'){const au=getAudio();if(au){stopSpeak();au.currentTime=0;au.play();}}
+    if(a==='cmp'){const au=getAudio();if(!au)return;const after=()=>{au.currentTime=0;au.play();};const s=say();
+      if(Array.isArray(s))speakSeq(s,{onDone:after});else speak(s,{onend:()=>setTimeout(after,300)});}
+  });
+  if(RESULTS[key]&&RESULTS[key].score!=null&&SR){showResult(RESULTS[key],true);}
+  return el;
+}
+
+/* ================= BÀI TRẢ LỜI VIẾT (có kiểm tra) ================= */
+const QA=load('qa',{});
+const ICON={err:'❌',logic:'🧠',content:'📌',tip:'💡',ok:'✅'};
+function renderAnalysis(box,res){
+  const order=['ok','err','logic','content','tip'];
+  let html=res.err===0?'<div class="verdict ok">🎉 Rất tốt! Máy không tìm thấy lỗi nào.</div>':`<div class="verdict no">Em cần sửa <b>${res.err}</b> chỗ. Sửa trực tiếp vào ô trên rồi bấm Kiểm tra lại.</div>`;
+  order.forEach(k=>res.items.filter(i=>i.k===k).forEach(i=>{
+    html+=`<div class="fi k-${k}"><span class="fic">${ICON[k]}</span><div>${esc(i.msg)}${i.ex?`<div class="ex">${esc(i.ex)}</div>`:''}</div></div>`;
+  }));
+  if(res.fixed)html+=`<div class="fixed">✏️ <b>Bản sửa gợi ý</b> (chỉ sửa các lỗi ngữ pháp máy tìm thấy; em vẫn cần tự kiểm tra ý):<div class="fx">${esc(res.fixed)}</div></div>`;
+  html+='<div class="tip" style="color:var(--muted)">Máy kiểm tra theo quy tắc nên có thể sót lỗi hoặc báo nhầm. Thầy/cô sẽ xem lại bài em nộp.</div>';
+  box.innerHTML=html;
+}
+function buildQA(sel,qs){
+  const root=$(sel);root.innerHTML='';
+  qs.forEach((q,i)=>{
+    const st=QA[q.id]||(QA[q.id]={n:0});
+    const c=h('div',{class:'q'});
+    c.innerHTML=`<div class="qt"><span class="qn">${i+1}</span><div><div class="en-q">${esc(q.en)}</div><div class="vi-s">${esc(q.vi)}</div></div></div>
+      <div class="row"><button class="b" data-a="hint">💡 Gợi ý câu</button></div>
+      <div class="frame" hidden>${esc(q.frame)}</div>
+      <textarea rows="${q.short?2:4}" placeholder="Gõ câu trả lời bằng tiếng Anh…" spellcheck="false" autocapitalize="sentences" aria-label="Câu trả lời ${i+1}"></textarea>
+      <div class="row"><button class="b primary" data-a="chk">✓ Kiểm tra</button><span class="wcnt tip"></span><button class="b" data-a="model" hidden>📖 Xem bài mẫu</button></div>
+      <div class="fbox"></div>
+      <div class="mbox" hidden><b>Bài mẫu:</b> ${esc(q.model)}<div class="vi-s">${esc(q.modelVi)}</div><button class="b" data-hear="${esc(q.model)}">🔊 Nghe bài mẫu</button></div>`;
+    const ta=c.querySelector('textarea'),fb=c.querySelector('.fbox'),cnt=c.querySelector('.wcnt'),mb=c.querySelector('.mbox');
+    const modelBtn=c.querySelector('[data-a=model]');
+    const upd=()=>{cnt.textContent=wc(ta.value)?wc(ta.value)+' từ':'';};
+    ta.value=st.draft!=null?st.draft:(st.last||'');upd();
+    if(st.lastItems){renderAnalysis(fb,{items:st.lastItems,err:st.lastErr,fixed:st.fixed||''});modelBtn.hidden=false;}
+    ta.oninput=()=>{st.draft=ta.value;store('qa',QA);upd();};
+    c.addEventListener('click',e=>{
+      const b=e.target.closest('[data-a]');if(!b)return;const a=b.dataset.a;
+      if(a==='hint')c.querySelector('.frame').hidden=!c.querySelector('.frame').hidden;
+      if(a==='model')mb.hidden=!mb.hidden;
+      if(a==='chk'){
+        const text=ta.value.trim();
+        if(!text){toast('Em hãy gõ câu trả lời trước nhé.');ta.focus();return;}
+        const res=analyze(q,text);
+        st.last=text;st.lastErr=res.err;st.lastItems=res.items;st.fixed=res.fixed;st.n=(st.n||0)+1;st.draft=ta.value;
+        if(st.first==null){st.first=text;st.firstErr=res.err;st.firstItems=res.items;}
+        store('qa',QA);renderAnalysis(fb,res);modelBtn.hidden=false;
+        fb.scrollIntoView({block:'nearest',behavior:'smooth'});
+      }
+    });
+    root.appendChild(c);
+  });
+}
+
+/* ================= BÀI ĐỌC: bấm vào từ để xem nghĩa ================= */
+function paraHTML(text,card){
+  return text.replace(/([A-Za-z][A-Za-z'’-]*)|([^A-Za-z]+)/g,(m,w,o)=>{
+    if(w){const k=w.toLowerCase();return `<span class="wd" data-k="${esc(k)}" data-w="${esc(w)}" data-card="${card}" tabindex="0" role="button">${esc(w)}</span>`;}
+    return esc(o);
+  });
+}
+function sentencesOf(text){return text.match(/[^.!?]+[.!?]+/g).map(s=>s.trim());}
+function showWord(k,w,cardId){
+  const e=DICT[k],card=$('#'+cardId);if(!card)return;
+  document.querySelectorAll('.wd.on').forEach(x=>x.classList.remove('on'));
+  document.querySelectorAll('.wd[data-k="'+k+'"]').forEach(x=>x.classList.add('on'));
+  if(!e){card.innerHTML=`<div class="wc-top"><span class="wc-w">${esc(w)}</span><button class="b" data-hear="${esc(k)}">🔊</button></div><div class="hint" style="margin:0">Từ này chưa có trong từ điển mini.</div>`;speak(k);return;}
+  card.innerHTML=`<div class="wc-top"><span class="wc-w">${esc(w)}</span><span class="ipa">${e[1]}</span><span class="pos">${e[0]}</span><button class="b" data-hear="${esc(k)}">🔊 Nghe</button></div><div class="wc-vi">🇻🇳 ${esc(e[2])}</div>`;
+  speak(k);
+}
+document.addEventListener('click',e=>{const w=e.target.closest('.wd');if(w)showWord(w.dataset.k,w.dataset.w,w.dataset.card);});
+document.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target.classList&&e.target.classList.contains('wd')){e.preventDefault();showWord(e.target.dataset.k,e.target.dataset.w,e.target.dataset.card);}});
+function buildReading(passSel,data,card,qSel){
+  const p=$(passSel);
+  p.innerHTML=`<div class="row" style="margin-bottom:6px"><button class="b" data-a="listen">🔊 Nghe cả bài</button><button class="b" data-a="stop">⏹ Dừng</button></div><div class="ptext">${paraHTML(data.text,card)}</div>`;
+  p.addEventListener('click',e=>{const b=e.target.closest('[data-a]');if(!b)return;if(b.dataset.a==='listen')speakSeq(sentencesOf(data.text));if(b.dataset.a==='stop')stopSpeak();});
+  buildQA(qSel,data.qs);
+}
+
+/* ================= ĐỌC TO ================= */
+function buildAloud(){
+  const root=$('#aloudBox');root.innerHTML='';
+  ALOUD.forEach((it,i)=>{
+    const c=h('div',{class:'card'});
+    c.innerHTML=`<div class="lvl">${it.stars} ${esc(it.level)}</div>
+      <div class="en-q">❓ ${esc(it.q)}</div><div class="vi-s">${esc(it.qvi)}</div>
+      <div class="ptext" style="margin-top:8px">${paraHTML(it.a,'wc-a')}</div>`;
+    c.appendChild(practice({key:it.id,label:'Đọc to – '+it.level,target:it.a,speakText:sentencesOf(it.a),maxSec:[30,55,95][i]}));
+    const d=h('details',{class:'sents'});
+    d.innerHTML='<summary>Luyện từng câu (không bắt buộc)</summary>';
+    sentencesOf(it.a).forEach((s,j)=>{
+      const sl=h('div',{class:'sline'});
+      sl.innerHTML=`<div class="ptext" style="font-size:17px;line-height:1.8">${paraHTML(s,'wc-a')}</div>`;
+      sl.appendChild(practice({key:it.id+'s'+j,label:'Đọc to – '+it.level+' – câu '+(j+1),target:s,maxSec:25}));
+      d.appendChild(sl);
+    });
+    c.appendChild(d);
+    root.appendChild(c);
+  });
+}
+
+/* ================= TỔNG KẾT & XEM LẠI ================= */
+const QA_LIST=[...WARM.map(q=>['① Warm-up',q]),...READ1.qs.map(q=>['② Reading 1',q]),...READ2.qs.map(q=>['③ Reading 2',q])];
+const BADK=['err','logic','content'];
+function recKeys(){return Object.keys(RESULTS).filter(k=>/^a\d(s\d+)?$/.test(k));}
+function recStats(){const ks=recKeys();const sc=ks.map(k=>RESULTS[k].score).filter(x=>x!=null);
+  return{n:ks.length,sent:ks.filter(k=>RESULTS[k].sent).length,avg:sc.length?Math.round(sc.reduce((a,b)=>a+b,0)/sc.length):null};}
+function recPart(k){return /^a\d$/.test(k)?'④ Đọc to (cả câu trả lời)':'④ Đọc to (từng câu)';}
+function qaRows(){return QA_LIST.map(([part,q])=>{const s=QA[q.id]||{};
+  if(s.first==null)return {part,question:q.en,answer:'(chưa làm)',correct:q.model,result:'Chưa làm',x:''};
+  const issues=(s.firstItems||[]).filter(i=>BADK.includes(i.k)).map(i=>i.msg.slice(0,90)).join(' | ');
+  return {part,question:q.en,answer:s.first===s.last?s.first:s.first+'  → (sau khi sửa) '+s.last,correct:q.model,
+    result:('Lần đầu: '+s.firstErr+' chỗ cần sửa; lần cuối: '+s.lastErr+'; kiểm tra '+s.n+' lần. '+issues).slice(0,420),x:''};});}
+function recRows(){return recKeys().map(k=>{const r=RESULTS[k];return {part:recPart(k)+' (ghi âm)',question:r.label,answer:r.transcript||'(máy chưa nghe được)',correct:r.target,result:(r.score!=null?r.score+'%':(r.self?'tự chấm '+r.self+'/3':'không chấm'))+(r.sent?' · đã gửi':' · CHƯA gửi')};});}
+function allRows(){return [...qaRows(),...recRows()];}
+function qaStat(list){const d=list.filter(q=>QA[q.id]&&QA[q.id].first!=null);
+  return {done:d.length,total:list.length,f:d.reduce((a,q)=>a+QA[q.id].firstErr,0),l:d.reduce((a,q)=>a+QA[q.id].lastErr,0)};}
+function renderSummary(){
+  const c=recStats();const unsent=c.n-c.sent;
+  const row=(name,list)=>{const s=qaStat(list);return `<tr><td>${name}</td><td>${s.done}/${s.total} câu đã làm`+(s.done?` · số chỗ cần sửa: lần đầu ${s.f} → hiện tại ${s.l}`:'')+'</td></tr>';};
+  $('#sumBox').innerHTML=`<div class="tbl"><table class="sum"><tr><th>Phần</th><th>Kết quả</th></tr>
+   ${row('① Warm-up',WARM)}${row('② Reading 1',READ1.qs)}${row('③ Reading 2',READ2.qs)}
+   ${ALOUD.map(a=>`<tr><td>④ Đọc to · ${esc(a.level)}</td><td>${RESULTS[a.id]?(RESULTS[a.id].score!=null?RESULTS[a.id].score+'%':'đã ghi âm')+(RESULTS[a.id].sent?' · đã gửi':' · chưa gửi'):'chưa đọc'}</td></tr>`).join('')}
+   </table></div>${unsent>0?`<p class="warn">⚠️ Em còn <b>${unsent}</b> bản ghi âm chưa gửi. Vào tab ④, nghe lại rồi bấm <b>📤 Gửi bản ghi này</b>.</p>`:''}`;
+}
+function buildSummary(){
+  const c=recStats();const w=qaStat([...WARM,...READ1.qs,...READ2.qs]);
+  return {summary:{recordings:c.sent,avg:c.avg,
+    full:'Đọc to: '+ALOUD.map((a,i)=>'L'+(i+1)+' '+(RESULTS[a.id]?(RESULTS[a.id].score!=null?RESULTS[a.id].score+'%':'đã ghi'):'chưa đọc')).join(' · '),
+    writes:'Trả lời viết: '+w.done+'/'+w.total+' câu · chỗ cần sửa lần đầu '+w.f+' → hiện tại '+w.l,
+    quiz:['Warm-up '+qaStat(WARM).done+'/3','Reading 1 '+qaStat(READ1.qs).done+'/3','Reading 2 '+qaStat(READ2.qs).done+'/3'].join(' · ')},
+    details:allRows().map(r=>({part:r.part,question:r.question,answer:r.answer,correct:r.correct,result:r.result}))};
+}
+function fileBase(key){const m=key.match(/^a(\d)(?:s(\d+))?$/);if(!m)return 'x_'+key;return 'DocTo_Cap'+m[1]+(m[2]!==undefined?'_Cau'+String(+m[2]+1).padStart(2,'0'):'_CaCau');}
+$('#reviewBtn').onclick=()=>{
+  const box=$('#reviewBox');
+  if(box.innerHTML){box.innerHTML='';$('#reviewBtn').textContent='🔍 Xem lại bài của em';return;}
+  $('#reviewBtn').textContent='🙈 Ẩn phần xem lại';
+  let html='',cur='';
+  QA_LIST.forEach(([part,q])=>{
+    if(part!==cur){cur=part;html+=`<h3>${esc(cur)}</h3>`;}
+    const s=QA[q.id];
+    if(!s||s.first==null){html+=`<div class="rv-item"><b>${esc(q.en)}</b><br>Chưa làm.</div>`;return;}
+    const bad=(s.lastItems||[]).filter(i=>BADK.includes(i.k));
+    html+=`<div class="rv-item ${bad.length?'no':'ok'}"><b>${esc(q.en)}</b><br>Bài của em: ${esc(s.last)}`
+      +(s.first!==s.last?`<br><span class="vi-s">Lần kiểm tra đầu: ${esc(s.first)}</span>`:'')
+      +(bad.length?'<br>'+bad.map(i=>'• '+esc(i.msg)+(i.ex?' <i>('+esc(i.ex)+')</i>':'')).join('<br>'):'<br>✅ Lần kiểm tra cuối không còn lỗi máy tìm thấy.')
+      +`<br><span class="vi-s">Bài mẫu: ${esc(q.model)}</span></div>`;
+  });
+  html+='<h3>④ Đọc to</h3>';
+  ALOUD.forEach(a=>{const r=RESULTS[a.id];html+=`<div class="rv-item"><b>${esc(a.level)}</b> · ${r?(r.score!=null?r.score+'%':'đã ghi âm')+(r.sent?' · đã gửi':' · chưa gửi'):'chưa đọc'}</div>`;});
+  box.innerHTML=html;
+};
+
+/* ================= TAB & KHỞI TẠO ================= */
+document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{
+  stopSpeak();
+  document.querySelectorAll('.tab').forEach(x=>x.setAttribute('aria-selected',x===t));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('on',p.id==='p-'+t.dataset.p));
+  if(t.dataset.p==='send'){renderSummary();$('#reviewBox').innerHTML='';$('#reviewBtn').textContent='🔍 Xem lại bài của em';}
+  window.scrollTo({top:0});
+});
+buildQA('#warmBox',WARM);
+buildReading('#r1Pass',READ1,'wc-r1','#r1Q');
+buildReading('#r2Pass',READ2,'wc-r2','#r2Q');
+buildAloud();
+(function(){
+  const g=$('#gate'),inp=$('#gateName');
+  if(!load('name',''))g.hidden=false;else $('#stuName').value=load('name','');
+  const go=()=>{const v=inp.value.trim();if(!v){inp.focus();return;}store('name',v);$('#stuName').value=v;g.hidden=true;};
+  $('#gateGo').onclick=go;inp.onkeydown=e=>{if(e.key==='Enter')go();};
+  $('#stuName').addEventListener('change',()=>{const v=$('#stuName').value.trim();if(v)store('name',v);else $('#stuName').value=load('name','');});
+})();
+if(!SR){setTimeout(()=>toast('Máy này ghi âm được nhưng chưa tự chấm phát âm. Dùng Chrome để được chấm %.',6000),1500);}
+window.addEventListener('beforeunload',e=>{if(QUEUE.length||BUSY||ACTIVE){e.preventDefault();e.returnValue='';}});
+
+/* ================= GỬI BÀI ================= */
+const HAS_URL=/^https:\/\/script\.google(usercontent)?\.com\//.test(SCRIPT_URL);
+if(!HAS_URL)$('#noUrl').hidden=false;
+function stuName(){return ($('#stuName').value||load('name','')).trim();}
+function fileBase(key){
+  if(key==='para')return 'DocDoan_CaBai';
+  if(key==='wm')return 'DocTu_XenKe';
+  const m=key.match(/^([wsp])(\d+)$/);if(!m)return 'x_'+key;
+  return ({w:'DocTu_Nhom',s:'DocCau',p:'DocDoan_Cau'})[m[1]]+'_'+String(+m[2]+1).padStart(2,'0');
+}
+async function toMp3(blob){
+  if(!window.lamejs)return null;
+  const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return null;
+  const ac=new AC();
+  try{
+    const buf=await new Promise((res,rej)=>{blob.arrayBuffer().then(ab=>ac.decodeAudioData(ab,res,rej)).catch(rej);});
+    const rt=22050;const len=Math.ceil(buf.duration*rt);
+    const off=new OfflineAudioContext(1,len,rt);const src=off.createBufferSource();src.buffer=buf;src.connect(off.destination);src.start();
+    const out=await off.startRendering();const f=out.getChannelData(0);
+    const pcm=new Int16Array(f.length);for(let i=0;i<f.length;i++){const v=Math.max(-1,Math.min(1,f[i]));pcm[i]=v<0?v*0x8000:v*0x7FFF;}
+    const enc=new lamejs.Mp3Encoder(1,rt,48);const parts=[];
+    for(let i=0;i<pcm.length;i+=1152){const b=enc.encodeBuffer(pcm.subarray(i,i+1152));if(b.length)parts.push(new Uint8Array(b));}
+    const e=enc.flush();if(e.length)parts.push(new Uint8Array(e));
+    return new Blob(parts,{type:'audio/mpeg'});
+  }catch(err){return null;}finally{try{ac.close();}catch(_){}}
+}
+function b64(blob){return new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(String(r.result).split(',')[1]);r.onerror=rej;r.readAsDataURL(blob);});}
+async function postJSON(obj){
+  const body=JSON.stringify(obj);
+  try{
+    const r=await fetch(SCRIPT_URL,{method:'POST',body,headers:{'Content-Type':'text/plain;charset=utf-8'},redirect:'follow'});
+    const j=await r.json();if(!j.ok)throw new Error(j.error||'fail');return j;
+  }catch(err){
+    if(err instanceof TypeError){
+      await fetch(SCRIPT_URL,{method:'POST',body,mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'}});return {ok:true};
+    }
+    throw err;
+  }
+}
+const QUEUE=[];let BUSY=false;const UI_CB={};
+function updateCloud(){const el=$('#cloud');const n=QUEUE.length+(BUSY?1:0);
+  if(n){el.hidden=false;el.textContent='☁️ Đang gửi '+n+' bản ghi âm cho thầy/cô…';}
+  else if(updateCloud.sent){el.hidden=false;el.textContent='✅ Đã gửi '+updateCloud.sent+' bản ghi âm';}
+  else el.hidden=true;}
+updateCloud.sent=0;
+function enqueueUpload(key,blob,r,cb){
+  if(!HAS_URL)return;
+  UI_CB[key]=cb;cb&&cb('wait');
+  const i=QUEUE.findIndex(q=>q.key===key);const job={key,blob,r,tries:0};
+  if(i>=0)QUEUE[i]=job;else QUEUE.push(job);
+  updateCloud();runQueue();
+}
+async function runQueue(){
+  if(BUSY||!QUEUE.length)return;BUSY=true;const job=QUEUE.shift();updateCloud();
+  const cb=UI_CB[job.key];
+  try{
+    let blob=await toMp3(job.blob),ext='mp3',mime='audio/mpeg';
+    if(!blob){blob=job.blob;mime=(blob.type||'audio/webm').split(';')[0];ext=mime.includes('mp4')?'m4a':mime.includes('ogg')?'ogg':'webm';}
+    await postJSON({type:'audio',name:stuName()||'Không tên',lesson:LESSON,file:fileBase(job.key)+'.'+ext,mime,label:job.r.label,target:job.r.target,transcript:job.r.transcript,score:job.r.score,dur:job.r.dur,audio:await b64(blob)});
+    RESULTS[job.key].sent=true;store('results',RESULTS);updateCloud.sent++;cb&&cb('ok');
+  }catch(err){
+    job.tries++;cb&&cb('bad');
+    if(job.tries<6){setTimeout(()=>{if(!QUEUE.some(q=>q.key===job.key))QUEUE.push(job);updateCloud();runQueue();},Math.min(30000,2000*2**job.tries));}
+  }finally{BUSY=false;updateCloud();runQueue();}
+}
+async function sendSummary(){
+  const msg=$('#submitMsg');
+  if(!HAS_URL){msg.textContent='⚙️ Trang chưa được thầy/cô cài link nhận bài.';return;}
+  const name=stuName();if(!name){toast('Em ghi tên trước nhé.');$('#stuName').focus();return;}
+  const btn=$('#submitBtn');btn.disabled=true;btn.textContent='Đang gửi…';
+  try{
+    await postJSON(Object.assign({type:'submit',name,lesson:LESSON,link:location.href},buildSummary()));
+    const pending=QUEUE.length+(BUSY?1:0);
+    msg.innerHTML='✅ <b>Đã nộp bài!</b> Thầy/cô đã nhận được bài của em.'+(pending?' (Còn '+pending+' bản ghi âm đang gửi, em đợi một chút trước khi đóng trang.)':'');
+    toast('✅ Đã nộp bài cho thầy/cô!',5000);
+  }catch(e){msg.textContent='⚠️ Chưa gửi được (mạng yếu?). Em bấm nộp lại nhé.';}
+  finally{btn.disabled=false;btn.textContent='📨 Nộp bài cho thầy/cô';}
+}
+$('#submitBtn').onclick=sendSummary;
+
+
+</script>
+</body>
+</html>
